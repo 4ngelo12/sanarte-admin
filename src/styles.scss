@@ -7,3 +7,13 @@
     margin: 0 auto;
     width: min(90%, 75rem);
 }
+
+.button-decoration {
+    background-color: #637558;
+    color: white;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #4d5b48;
+    }
+}

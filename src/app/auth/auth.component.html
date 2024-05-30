@@ -1,19 +1,17 @@
 <div class="flex h-screen flex-col justify-center sm:mx-auto sm:w-full sm:max-w-md ">
-    <div class="bg-[#374232] rounded-t-md">
-        <picture class="">
-            <source srcset="../../assets/img/logo.webp" type="image/webp">
-            <source srcset="../../assets/img/logo.png" type="image/png">
-            <img loading="lazy" class="w-full" src="../../assets/img/logo.webp" alt="Logo Registro">
-        </picture>
-    </div>
-
-    <div class="bg-white rounded-b-md">
-        <div class="flex justify-evenly ">
-            @for (item of authRoutes; track $index) {
-            <a [routerLink]="item.path">{{item.title}}</a>
-            }
+    <div class="shadow-2xl">
+        <div class="bg-[#374232] rounded-t-md">
+            <picture class="">
+                <source srcset="../../assets/img/logo.webp" type="image/webp">
+                <source srcset="../../assets/img/logo.png" type="image/png">
+                <img loading="lazy" class="w-full" src="../../assets/img/logo.png" alt="Logo Registro">
+            </picture>
         </div>
-
-        <router-outlet />
+    
+        <div class="bg-[#DBCDAB] py-5 rounded-b-md">
+            <section class=" sm:mx-auto sm:w-full sm:max-w-sm ">
+                <router-outlet />
+            </section>
+        </div>
     </div>
 </div>

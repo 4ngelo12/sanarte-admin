@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import LoginComponent from './pages/login/login.component';
 import RegisterComponent from './pages/register/register.component';
-import { routes } from '../app.routes';
+import LoginComponent from './pages/login/login.component';
 
 @Component({
   standalone: true,
@@ -11,8 +10,6 @@ import { routes } from '../app.routes';
   styles: ``
 })
 export default class AuthComponent {
-  public authRoutes = routes.map(route => route.children ?? [])
-    .flat().filter(route => route && route.path);
 
   constructor() {
 

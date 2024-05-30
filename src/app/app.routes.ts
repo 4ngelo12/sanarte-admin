@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authorizationGuard } from './core/guards/authorization.guard';
 
 export const routes: Routes = [
     {
@@ -13,13 +14,46 @@ export const routes: Routes = [
             {
                 path: 'register',
                 title: 'Register',
+                canActivate: [authorizationGuard],
                 loadComponent: () => import('./auth/pages/register/register.component')
             }
         ]
     },
     {
+        path: 'dashboard',
+        canActivate: [authorizationGuard],
+        loadComponent: () => import('./principal/principal.component'),
+        children: [
+            {
+                path: 'home',
+                title: 'Home',
+                loadComponent: () => import('./principal/pages/home/home.component')
+            },
+            {
+                path: 'reservas',
+                title: 'Reservas',
+                loadComponent: () => import('./principal/pages/reservas/reservas.component')
+            },
+            {
+                path: 'servicios',
+                title: 'Servicios',
+                loadComponent: () => import('./principal/pages/servicios/servicios.component')
+            },
+            {
+                path: 'categorias',
+                title: 'Categorias',
+                loadComponent: () => import('./principal/pages/categorias/categorias.component')
+            },
+            {
+                path: '',
+                redirectTo: 'home',
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
         path: '',
-        redirectTo: 'auth/login',
+        redirectTo: '/dashboard',
         pathMatch: 'full'
     }
 

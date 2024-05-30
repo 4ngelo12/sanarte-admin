@@ -1,0 +1,101 @@
+<!-- <div class="bg-[#E2CAAB] min-h-screen z-10 left-0 h-screen overflow-hidden sidebar"
+    [ngClass]="collapsed ? 'sidenav-collapsed' : 'w-64'">
+    <div class="flex items-start gap-2 py-2 ps-6 pe-2 sidenav">
+        <picture>
+            <source srcset="../../assets/img/logo-dashboard-prueba.webp" type="image/webp">
+            <source srcset="../../assets/img/logo-dashboard-prueba.png" type="image/png">
+            <img loading="lazy" src="../../assets/img/logo-dashboard-prueba.png" alt="Logo Dashboard">
+        </picture>
+
+        <button class="btn-close" (click)="toggleCollapse()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <div id="profile" class="px-6 py-10">
+        <p class="text-slate-900">Bienvenido de vuelta,</p>
+        <a href="#" class="bg group flex items-center space-x-4 rounded-full px-4 py-3 text-gray-600">
+            <span>
+                <img class="rounded-full w-8 h-8"
+                    src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80"
+                    alt="">
+            </span>
+            <span class="text-sm md:text-base font-bold">
+                Edward Tompson
+            </span>
+        </a>
+    </div>
+
+    <div id="nav" class="w-full px-6">
+        @for (item of menuItems; track $index) {
+        <a [routerLink]="item.path" routerLinkActive="router-link-active" class="w-full my-2 px-2 inline-flex space-x-2 items-center rounded-md border-b border-[#9a8f65] py-3 bg-[#b9aa7b] 
+        hover:bg-[#b4a364] transition ease-linear duration-150">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6 text-black">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                </svg>
+
+            </div>
+            <div class="">
+                <span class="text-lg font-bold leading-5 text-black">{{item.title}}</span>
+            </div>
+        </a>
+        }
+    </div>
+</div>
+ -->
+
+
+<div class="min-h-screen bg-[#374232]">
+    <div class="sidebar min-h-screen overflow-hidden border-r  hover:shadow-lg"
+        [ngClass]="collapsed ? 'sidenav-collapsed' : 'w-[16rem]'">
+        <div class="flex h-screen flex-col justify-between pt-2 pb-6">
+            <div>
+                <div class="">
+                    <picture (click)="toggleCollapse()">
+                        <source srcset="../../assets/img/logo.webp" type="image/webp">
+                        <source srcset="../../assets/img/logo.png" type="image/png">
+                        <img loading="lazy" src="../../assets/img/logo.png" alt="Logo Dashboard">
+                    </picture>
+                </div>
+                <ul class="mt-6 space-y-2 tracking-wide">
+                    @for (item of menuItems; track $index) {
+                    <li class="min-w-max">
+                        <a [routerLink]="item.path" class="relative flex items-center space-x-4 px-4 py-3 text-white
+                        font-semibold button-decoration"
+                            [ngClass]="isSelected ? 'bg-gradient-to-r from-sky-600 to-cyan-400 text-white' : ''">
+                            <svg class="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M6 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8ZM6 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-1Z"
+                                    class="fill-current text-cyan-400 dark:fill-slate-600"></path>
+                                <path d="M13 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2V8Z"
+                                    class="fill-current text-cyan-200 group-hover:text-cyan-300"></path>
+                                <path d="M13 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-1Z"
+                                    class="fill-current group-hover:text-sky-300"></path>
+                            </svg>
+                            <span class="-mr-1 font-medium">{{item.title}}</span>
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="w-full -mb-3 button-decoration">
+                <button class="group flex items-center space-x-4 rounded-md px-4 py-3" (click)="logout()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="-ml-1 h-6 w-6 group-hover:fill-[#799468]">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                    </svg>
+
+                    <span>Salir</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
