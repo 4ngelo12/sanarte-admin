@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TableAction } from '@app/core/interfaces/Table-Column';
 
 @Component({
   selector: 'app-table-data',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './table-data.component.html',
   styleUrl: './table-data.component.scss'
 })

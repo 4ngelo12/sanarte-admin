@@ -1,0 +1,7 @@
+.truncado {
+    min-width: 3rem;
+    max-width: 8rem; /* Ancho máximo de la celda */
+    white-space: nowrap; /* No permitir el ajuste de línea */
+    overflow: hidden; /* Ocultar el texto que desborda */
+    text-overflow: ellipsis; /* Agregar puntos suspensivos al texto truncado */
+}

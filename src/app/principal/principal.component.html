@@ -1,8 +1,9 @@
-<div class="flex overflow-y-scroll w-screen h-screen antialiased text-black">
-    <div class="flex gap-3 relative w-screen">
+<div class="flex overflow-y-scroll w-full h-screen antialiased text-black">
+    <div class="flex gap-3 w-screen">
         <app-sidemenu />
 
-        <router-outlet />
-      
+        <div class="flex-1 w-fit">
+            <router-outlet /> 
+        </div>
     </div>
 </div>

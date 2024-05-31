@@ -1,40 +1,45 @@
-<main class="p-10 ">
-    <h1 class="pb-6">Lista de {{title }}</h1>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    @for(column of columns; track $index){
-                    <th scope="col" class="px-6 py-3">
-                        {{ column }}
-                    </th>
-                    }
-                    <th scope="col" class="px-6 py-3">
-                        Acciones
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(data of dataSources; track $index){
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+<main class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="pb-6">Lista de {{title}}</h1>
+    <div class="py-8">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left">
+                <thead class="text-xs text-black uppercase bg-[#cba879]">
+                    <tr>
+                        @for(column of columns; track $index){
+                        <th scope="col" class="px-4 py-3">
+                            {{ column }}
+                        </th>
+                        }
 
-                    @for(nombre of columns; track $index ){
-                    <td class="px-6 py-4">
-                        {{ data[nombre] }}
-                    </td>
+                        <th scope="col" class="px-4 py-3">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(data of dataSources; track $index){
+                    <tr class="border-b" [ngClass]="$index % 2 === 0 ? 'bg-[#ede4d3]' : 'bg-[#c7b194]'">
+                        @for(nombre of columns; track $index ){
+                        <td class="px-4 py-4 truncado" [ngClass]="data[nombre] === null ? 'text-center': '' ">
+                            @if (data[nombre] !== null) {
+                            {{ data[nombre] }}
+                            } @else {
+                            -
+                            }
+                        </td>
+                        }
+
+                        <td class="py-4 text-left ">
+                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-7"
+                                (click)="onAction('Editar',data)">Edit</a>
+                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                (click)="onAction('Eliminar',data)">Delete</a>
+                        </td>
+                    </tr>
                     }
-                    <td class="py-4 text-left ">
-                        <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-7"
-                            (click)="onAction('Editar',data)">Edit</a>
-                        <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            (click)="onAction('Eliminar',data)">Delete</a>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
 
-<!-- Crear el servicio -->

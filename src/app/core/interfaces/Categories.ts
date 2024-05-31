@@ -10,8 +10,6 @@ export interface ICategory {
     description: string;
     warning:     null | string;
     image:       string;
-    created_at:  Date;
-    updated_at:  Date;
 }
 
 
@@ -21,6 +19,4 @@ export class Category {
     description= '';
     warning? = '';
     image= '';
-    created_at = '2024-05-26T01:52:51.000000Z';
-    updated_at = '2024-05-26T01:52:51.000000Z';
 }
