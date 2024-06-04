@@ -13,7 +13,8 @@ import { map } from 'rxjs';
   standalone: true,
   imports: [TableDataComponent, ListDataComponent],
   templateUrl: './servicios.component.html',
-  styles: ``
+  styles: ``,
+  providers: [ServiceService]
 })
 export default class ServiciosComponent implements OnInit {
   services: IService[] = [];

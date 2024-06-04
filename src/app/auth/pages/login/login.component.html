@@ -4,14 +4,19 @@
     <div>
         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
         <div class="mt-2">
-            <input id="email" formControlName="email" type="email" autocomplete="email" required class="block w-full 
-            rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+            <input id="email" formControlName="email" type="email" required 
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
                 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
                 focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
 
-        <div>{{getErrorMessageEmail()}}</div>
-
+        <div class="bg-red-300 py-2 mt-2 ps-4 rounded-md" [hidden]="email.valid || email.pristine">
+            @if (email.hasError('required')) {
+                <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+            } @else if (email.hasError('email')) {
+                <span class="text-red-600 font-semibold">Formato de correo invalido</span>
+            }
+        </div>
     </div>
 
     <div>
@@ -21,6 +26,7 @@
                 <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
             </div>
         </div>
+
         <div class="mt-2">
             <input id="password" formControlName="password" type="password" autocomplete="current-password" required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
@@ -28,8 +34,13 @@
                 focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
 
-        <div>{{getErrorMessagePassword()}}</div>
-
+        <div class="bg-red-300 py-2 mt-2 ps-4 rounded-md" [hidden]="password.valid || password.pristine">
+            @if (password.hasError('required')) {
+                <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+            } @else if (password.hasError('minlength')) {
+                <span class="text-red-600 font-semibold">Longitud de contraseña insuficiente</span>
+            }
+        </div>
     </div>
 
     <div>

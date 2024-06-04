@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '@app/core/interfaces/Login';
 import { AuthService } from '@app/core/services/auth.service';
@@ -7,7 +7,7 @@ import { LocalstorageService } from '@app/core/services/localstorage.service';
 
 @Component({
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './login.component.html',
   styles: ``
 })
@@ -46,19 +46,11 @@ export default class LoginComponent implements OnInit {
 
   // Validaciones de formulario
 
-  getErrorMessageEmail() {
-    if (this.Loginform.get('email')!.hasError('required')) {
-      return 'Debes ingresar un valor';
-    }
-
-    return this.Loginform.get('email')!.hasError('email') ? 'Formato de correo invalido' : '';
+  get email() {
+    return this.Loginform.get('email') as FormGroup;
   }
 
-  getErrorMessagePassword() {
-    if (this.Loginform.get('password')!.hasError('required')) {
-      return 'Debes ingresar un valor';
-    }
-
-    return this.Loginform.get('password')!.hasError('minlength') ? 'Longitud de contraseña insuficiente' : '';
+  get password() {
+    return this.Loginform.get('password') as FormGroup;
   }
 }
