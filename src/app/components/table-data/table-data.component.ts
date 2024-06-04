@@ -15,24 +15,16 @@ import { map } from 'rxjs';
 })
 
 export class TableDataComponent {
-  title = '';
   columns: string[] = [];
   dataSources: any = [];
 
-  // Comparar el tamaño de la pantalla
-  private breakpointObserver = inject(BreakpointObserver);
-  private isMobile$ = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(map(result => result.matches));
-  isMobile = toSignal(this.isMobile$, { initialValue: false });
+  // // Comparar el tamaño de la pantalla
+  // private breakpointObserver = inject(BreakpointObserver);
+  // private isMobile$ = this.breakpointObserver
+  //   .observe(Breakpoints.Handset)
+  //   .pipe(map(result => result.matches));
+  // isMobile = toSignal(this.isMobile$, { initialValue: false });
 
-  constructor() {
-    console.log(this.isMobile()); // Esto debería reflejar el estado correcto de 'isMobile'
-  }
-
-  @Input() set titleValue(value: string) {
-    this.title = value;
-  }
 
   @Input() set columnsValue(value: string[]) {
     this.columns = value

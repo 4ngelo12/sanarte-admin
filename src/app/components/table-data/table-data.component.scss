@@ -5,31 +5,3 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-.is-mobile {
-    table {
-        width: 100%;
-        border-collapse: collapse;
-
-        tr {
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-        }
-
-        thead {
-            display: none;
-        }
-
-        td[data-titulo] {
-            display: flex;
-            gap: 0.625rem;
-
-            &::before {
-                content: attr(data-titulo);
-                font-weight: bold;
-                width: 75px;
-            }
-        }
-    }
-}

@@ -1,1 +1,11 @@
-<p>servicios works!</p>
+<h1 class="ps-6 my-4 font-semibold">Lista de {{title}}</h1>
+
+@if (isMobile()) {
+    @defer {
+        <app-list-data [columnsValue]="columns" [datasourcesValue]="services"/>
+    }
+} @else {
+    @defer {
+        <app-table-data [columnsValue]="columns" [datasourcesValue]="services"/>
+    }
+}

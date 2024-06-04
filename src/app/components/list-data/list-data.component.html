@@ -1,0 +1,23 @@
+@for(data of dataSources; track $index){
+<div class="my-3 mx-2 p-3 rounded-md border-2 border-black"
+    [ngClass]="$index % 2 === 0 ? 'bg-[#dcceb2]' : 'bg-[#c7b194]'">
+    @for(nombre of columns; track $index ){
+    <div class="flex gap-8 items-start px-4 py-4">
+        <h3 class="font-semibold w-16">{{nombre}}</h3>
+
+        @if (data[nombre] !== null) {
+        <p class="text-start">{{ data[nombre] }}</p>
+        } @else {
+        -
+        }
+    </div>
+    }
+
+    <div class="py-4 flex gap-3 justify-around">
+        <a href="#" class="text-center px-10 py-2 rounded-md button-decoration w-full"
+            (click)="onAction('Editar',data)">Edit</a>
+        <a href="#" class="text-center px-10 py-2 rounded-md button-decoration w-full"
+            (click)="onAction('Eliminar',data)">Delete</a>
+    </div>
+</div>
+}

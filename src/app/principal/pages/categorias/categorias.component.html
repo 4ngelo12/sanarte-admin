@@ -1,13 +1,11 @@
-<h1 class="ps-6 my-4 font-semibold">Lista de {{title}}</h1>
+<h1 class="ps-2 md:ps-6 my-4 font-semibold">Lista de {{title}}</h1>
 
-<app-table-data [titleValue]="title" [columnsValue]="columns" [datasourcesValue]="categories"/>
-
-<!-- @if (isMobile()) {
+@if (isMobile()) {
     @defer {
-        <app-list-data [titleValue]="title" [subTitleValue]="columns" [datasourcesValue]="categories"/>
+        <app-list-data [columnsValue]="columns" [datasourcesValue]="categories"/>
     }
 } @else {
     @defer {
-       
+        <app-table-data [columnsValue]="columns" [datasourcesValue]="categories"/>
     }
-} -->
+}
