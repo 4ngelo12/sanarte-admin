@@ -1,6 +1,6 @@
-<div class=" bg-[#374232]">
+<div class="fixed md:static bg-[#374232]">
     <div class="sidebar min-h-screen overflow-hidden border-r  hover:shadow-lg"
-        [ngClass]="collapsed ? 'sidenav-collapsed' : 'w-[16rem]'">
+        [ngClass]="isMobile() && collapsed ? 'sidenav-collapsed' : 'w-[16rem]'">
         <div class="flex h-screen flex-col justify-between pt-2 pb-6">
             <div>
                 <div class="">

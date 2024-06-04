@@ -17,3 +17,17 @@
         background-color: #4d5b48;
     }
 }
+
+.title-tb-decoration {
+    padding-inline-start: 3.625rem;
+    margin: 1rem 0;
+    font-weight: 600;
+
+}
+
+@media (min-width: 768px) {
+    .title-tb-decoration {
+        padding-inline-start: 1.5rem;
+    }
+
+}

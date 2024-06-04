@@ -1,5 +1,5 @@
 @for(data of dataSources; track $index){
-<div class="my-3 mx-2 p-3 rounded-md border-2 border-black"
+<div class="my-3 ms-14 me-4 p-3 rounded-md border-2 border-black"
     [ngClass]="$index % 2 === 0 ? 'bg-[#dcceb2]' : 'bg-[#c7b194]'">
     @for(nombre of columns; track $index ){
     <div class="flex gap-8 items-start px-4 py-4">

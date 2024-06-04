@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TableAction } from '@app/core/interfaces/Table-Column';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map } from 'rxjs';
 
 
 @Component({
@@ -17,14 +14,6 @@ import { map } from 'rxjs';
 export class TableDataComponent {
   columns: string[] = [];
   dataSources: any = [];
-
-  // // Comparar el tamaño de la pantalla
-  // private breakpointObserver = inject(BreakpointObserver);
-  // private isMobile$ = this.breakpointObserver
-  //   .observe(Breakpoints.Handset)
-  //   .pipe(map(result => result.matches));
-  // isMobile = toSignal(this.isMobile$, { initialValue: false });
-
 
   @Input() set columnsValue(value: string[]) {
     this.columns = value

@@ -1,8 +1,11 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { routes } from '@app/app.routes';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-sidemenu',
@@ -12,12 +15,20 @@ import { LocalstorageService } from '@app/core/services/localstorage.service';
   styleUrl: './sidemenu.component.scss'
 })
 export class SidemenuComponent {
-  collapsed = false;
+  collapsed = true;
   isSelected = false;
   public menuItems = routes.filter(route => route.path === 'dashboard')
     .map(route => route.children ?? [])
     .flat()
-    .filter(route => route && route.path)
+    .filter(route => route && route.path);
+
+  // Comparar el tamaño de la pantalla
+  private breakpointObserver = inject(BreakpointObserver);
+  private isMobile$ = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
+  isMobile = toSignal(this.isMobile$, { initialValue: false });
+
 
   constructor(private lsService: LocalstorageService) {
   }

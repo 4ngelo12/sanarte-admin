@@ -1,46 +1,44 @@
-<div >
-    <main class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="py-8">
-            <div class="overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left">
-                    <thead class="text-xs text-black uppercase bg-[#cba879]">
-                        <tr>
-                            @for(column of columns; track $index){
-                            <th scope="col" class="px-4 py-3">
-                                {{ column }}
-                            </th>
-                            }
-    
-                            <th scope="col" class="px-4 py-3">
-                                Acciones
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for(data of dataSources; track $index){
-                        <tr class="border-b" [ngClass]="$index % 2 === 0 ? 'bg-[#ede4d3]' : 'bg-[#c7b194]'">
-                            @for(nombre of columns; track $index ){
-                            <td [attr.data-titulo]="nombre" class="px-4 py-4 truncado"
-                                [ngClass]="data[nombre] === null ? 'text-center ': ''">
-                                @if (data[nombre] !== null) {
-                                {{ data[nombre] }}
-                                } @else {
-                                -
-                                }
-                            </td>
-                            }
-    
-                            <td class="py-4 text-left ">
-                                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-7"
-                                    (click)="onAction('Editar',data)">Edit</a>
-                                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                    (click)="onAction('Eliminar',data)">Delete</a>
-                            </td>
-                        </tr>
+<main class="max-w-screen-2xl mx-auto lg:px-6">
+    <div class="pt-2">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left">
+                <thead class="text-xs text-black uppercase bg-[#cba879]">
+                    <tr>
+                        @for(column of columns; track $index){
+                        <th scope="col" class="px-4 py-3">
+                            {{ column }}
+                        </th>
                         }
-                    </tbody>
-                </table>
-            </div>
+
+                        <th scope="col" class="px-4 py-3">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(data of dataSources; track $index){
+                    <tr class="border-b" [ngClass]="$index % 2 === 0 ? 'bg-[#ede4d3]' : 'bg-[#c7b194]'">
+                        @for(nombre of columns; track $index ){
+                        <td [attr.data-titulo]="nombre" class="px-4 py-4 truncado"
+                            [ngClass]="data[nombre] === null ? 'text-center ': ''">
+                            @if (data[nombre] !== null) {
+                            {{ data[nombre] }}
+                            } @else {
+                            -
+                            }
+                        </td>
+                        }
+
+                        <td class="py-4 text-left ">
+                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-7"
+                                (click)="onAction('Editar',data)">Edit</a>
+                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                (click)="onAction('Eliminar',data)">Delete</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    </main>
-</div>
+    </div>
+</main>
