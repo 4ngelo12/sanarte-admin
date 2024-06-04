@@ -1,5 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { ListDataComponent } from '@app/components/list-data/list-data.component';
+import { Component, OnInit } from '@angular/core';
 import { TableDataComponent } from '@app/components/table-data/table-data.component';
 import { ICategory } from '@app/core/interfaces/Categories';
 import { TableAction, getEntityPropiedades } from '@app/core/interfaces/Table-Column';
@@ -9,7 +8,7 @@ import { LocalstorageService } from '@app/core/services/localstorage.service';
 
 @Component({
   standalone: true,
-  imports: [TableDataComponent, ListDataComponent],
+  imports: [TableDataComponent],
   templateUrl: './categorias.component.html',
   styles: ``,
   providers: [CategoryService]
@@ -18,7 +17,6 @@ export default class CategoriasComponent implements OnInit {
   categories: ICategory[] = [];
   columns: string[] = [];
   title: string = 'Categorias';
-
 
   constructor(private categorySercice: CategoryService, private lsService: LocalstorageService) {
 

@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { TableAction } from '@app/core/interfaces/Table-Column';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs';
+
 
 @Component({
   selector: 'app-table-data',
@@ -9,10 +13,22 @@ import { TableAction } from '@app/core/interfaces/Table-Column';
   templateUrl: './table-data.component.html',
   styleUrl: './table-data.component.scss'
 })
+
 export class TableDataComponent {
   title = '';
   columns: string[] = [];
   dataSources: any = [];
+
+  // Comparar el tamaño de la pantalla
+  private breakpointObserver = inject(BreakpointObserver);
+  private isMobile$ = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
+  isMobile = toSignal(this.isMobile$, { initialValue: false });
+
+  constructor() {
+    console.log(this.isMobile()); // Esto debería reflejar el estado correcto de 'isMobile'
+  }
 
   @Input() set titleValue(value: string) {
     this.title = value;
