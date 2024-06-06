@@ -1,17 +1,19 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterModule } from '@angular/router';
 import { ListDataComponent } from '@app/components/list-data/list-data.component';
 import { TableDataComponent } from '@app/components/table-data/table-data.component';
 import { IService } from '@app/core/interfaces/Services';
 import { getEntityPropiedades } from '@app/core/interfaces/Table-Column';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import { ServiceService } from '@app/core/services/service.service';
+import SpinnerComponent from '@app/shared/spinner/spinner.component';
 import { map } from 'rxjs';
 
 @Component({
   standalone: true,
-  imports: [TableDataComponent, ListDataComponent],
+  imports: [TableDataComponent, ListDataComponent, RouterModule, SpinnerComponent],
   templateUrl: './list.component.html',
   styles: ``,
   providers: [ServiceService]

@@ -8,11 +8,12 @@ import { ICategory } from '@app/core/interfaces/Categories';
 import { TableAction, getEntityPropiedades } from '@app/core/interfaces/Table-Column';
 import { CategoryService } from '@app/core/services/category.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
+import SpinnerComponent from '@app/shared/spinner/spinner.component';
 import { map } from 'rxjs';
 
 @Component({
   standalone: true,
-  imports: [TableDataComponent, ListDataComponent, RouterModule],
+  imports: [TableDataComponent, ListDataComponent, RouterModule, SpinnerComponent],
   templateUrl: './list.component.html',
   styles: ``,
   providers: [CategoryService]

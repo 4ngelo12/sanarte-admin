@@ -4,10 +4,14 @@
 
 @if (isMobile() && showFirstChild) {
     @defer {
+        <app-spinner />
+            
         <app-list-data [columnsValue]="columns" [datasourcesValue]="categories" (action)="onAction($event)"/>
     }
 } @else if (showFirstChild) {
     @defer {
+        <app-spinner />
+        
         <app-table-data [columnsValue]="columns" [datasourcesValue]="categories" (action)="onAction($event)"/>
     }
 }

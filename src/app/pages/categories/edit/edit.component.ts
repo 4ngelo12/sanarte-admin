@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { ICategory } from '@app/core/interfaces/Categories';
 import { CategoryService } from '@app/core/services/category.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
+import SpinnerComponent from '@app/shared/spinner/spinner.component';
 
 @Component({
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, SpinnerComponent],
   templateUrl: './edit.component.html',
   styles: ``
 })
