@@ -17,10 +17,9 @@ import { map } from 'rxjs';
 export class SidemenuComponent {
   collapsed = true;
   isSelected = false;
-  public menuItems = routes.filter(route => route.path === 'dashboard')
-    .map(route => route.children ?? [])
-    .flat()
-    .filter(route => route && route.path);
+  public menuItems = routes.filter(route => route.path !== 'auth' && route.path !== '')
+  .map(route => route)
+  .flat();
 
   // Comparar el tamaño de la pantalla
   private breakpointObserver = inject(BreakpointObserver);

@@ -20,41 +20,68 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'dashboard',
+        path: 'home',
+        title: 'Home',
         canActivate: [authorizationGuard],
-        loadComponent: () => import('./principal/principal.component'),
+        loadComponent: () => import('./pages/home/home.component')
+    },
+    {
+        path: 'servicios',
+        title: 'Servicios',
+        canActivate: [authorizationGuard],
         children: [
             {
-                path: 'home',
-                title: 'Home',
-                loadComponent: () => import('./principal/pages/home/home.component')
+                path: 'list',
+                title: 'List',
+                loadComponent: () => import('./pages/services/list/list.component')
             },
             {
-                path: 'reservas',
-                title: 'Reservas',
-                loadComponent: () => import('./principal/pages/reservas/reservas.component')
+                path: 'create',
+                title: 'Create',
+                loadComponent: () => import('./pages/services/create/create.component')
             },
             {
-                path: 'servicios',
-                title: 'Servicios',
-                loadComponent: () => import('./principal/pages/servicios/servicios.component')
-            },
-            {
-                path: 'categorias',
-                title: 'Categorias',
-                loadComponent: () => import('./principal/pages/categorias/categorias.component')
-            },
+                path: 'edit/:id',
+                title: 'Edit',
+                loadComponent: () => import('./pages/services/edit/edit.component')
+            }, 
             {
                 path: '',
-                redirectTo: 'home',
+                redirectTo: 'list',
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
+        path: 'categorias',
+        title: 'Categorias',
+        canActivate: [authorizationGuard],
+        children: [
+            {
+                path: 'list',
+                title: 'List',
+                loadComponent: () => import('./pages/categories/list/list.component')
+            },
+            {
+                path: 'create',
+                title: 'Create',
+                loadComponent: () => import('./pages/categories/create/create.component')
+            },
+            {
+                path: 'edit/:id',
+                title: 'Edit',
+                loadComponent: () => import('./pages/categories/edit/edit.component')
+            }, 
+            {
+                path: '',
+                redirectTo: 'list',
                 pathMatch: 'full'
             }
         ]
     },
     {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: 'home',
         pathMatch: 'full'
-    }
-
+    },
 ];

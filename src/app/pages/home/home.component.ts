@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import HomeComponent from './pages/home/home.component';
-import { SidemenuComponent } from '@app/shared/sidemenu/sidemenu.component';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, HomeComponent, SidemenuComponent],
-  templateUrl: './principal.component.html',
+  imports: [],
+  templateUrl: './home.component.html',
   styles: ``
 })
-export default class PrincipalComponent implements OnInit {
+export default class HomeComponent implements OnInit {
   constructor(private lsService: LocalstorageService) { }
 
   ngOnInit(): void {

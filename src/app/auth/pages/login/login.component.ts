@@ -36,7 +36,7 @@ export default class LoginComponent implements OnInit {
         this.lsService.setToken(resp.token);
       },
       complete: () => {
-        this.router.navigate(['/dashboard/home']);
+        this.router.navigate(['/']);
       },
       error: (err: any) => {
         console.log(err);

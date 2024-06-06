@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ListDataComponent } from '@app/components/list-data/list-data.component';
 import { TableDataComponent } from '@app/components/table-data/table-data.component';
@@ -12,11 +12,11 @@ import { map } from 'rxjs';
 @Component({
   standalone: true,
   imports: [TableDataComponent, ListDataComponent],
-  templateUrl: './servicios.component.html',
+  templateUrl: './list.component.html',
   styles: ``,
   providers: [ServiceService]
 })
-export default class ServiciosComponent implements OnInit {
+export default class ListComponent {
   services: IService[] = [];
   columns: string[] = [];
   title: string = 'Servicios';

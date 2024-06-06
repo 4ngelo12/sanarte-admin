@@ -1,3 +1,10 @@
+export interface INewCategory {
+    name:        string;
+    description: string;
+    warning?:     string;
+    image:       string;
+}
+
 export interface ICategoriesResponse {
     message: string;
     status:  number;

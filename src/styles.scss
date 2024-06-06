@@ -18,15 +18,36 @@
     }
 }
 
-.title-tb-decoration {
-    padding-inline-start: 3.625rem;
-    margin: 1rem 0;
+.button-create {
     font-weight: 600;
+    background-color: #c1b483;
+    border-radius: 0.375rem;
+    padding: 0.5rem 2.5rem;
+    margin-inline-start: 3.5rem;
+    
+    &:hover {
+        background-color: #a69d7f;
+    }
+}
+
+@media (min-width: 768px) {
+    .button-create {
+        margin-inline-start: 1.5rem;
+    }
+
+}
+
+.title-tb-decoration {
+    font-size: 1.875rem;
+    padding-inline-start: 3.625rem;
+    margin: 2rem 0;
+    font-weight: bold;
 
 }
 
 @media (min-width: 768px) {
     .title-tb-decoration {
+        font-size: 2rem;
         padding-inline-start: 1.5rem;
     }
 

@@ -1,1 +1,17 @@
-<router-outlet />
+@if (token) {
+    @defer {
+        <div class="flex overflow-y-scroll w-full h-screen text-black">
+            <div class="flex gap-3 w-screen">
+                <app-sidemenu />
+        
+                <div class="flex-1">
+                    <router-outlet /> 
+                </div>
+            </div>
+        </div>
+    }
+} @else {
+    @defer {
+        <router-outlet /> 
+    }
+}

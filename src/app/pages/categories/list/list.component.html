@@ -1,0 +1,17 @@
+<h1 class="title-tb-decoration">Lista de {{title}}</h1>
+
+<a class="button-create"  [routerLink]="['/categorias/create']">Crear</a>
+
+@if (isMobile() && showFirstChild) {
+    @defer {
+        <app-list-data [columnsValue]="columns" [datasourcesValue]="categories" (action)="onAction($event)"/>
+    }
+} @else if (showFirstChild) {
+    @defer {
+        <app-table-data [columnsValue]="columns" [datasourcesValue]="categories" (action)="onAction($event)"/>
+    }
+}
+
+<!-- @if (showFirstChild) {
+    <app-table-data [columnsValue]="columns" [datasourcesValue]="categories" (action)="onAction($event)"/>
+} -->

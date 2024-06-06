@@ -1,0 +1,78 @@
+<div class="flex items-center justify-center min-h-full ms-16 me-5 md:ms-0">
+    <div class="mx-auto w-full max-w-xl p-6 rounded-md bg-[#dcceb2]">
+        <h2 class="text-center font-semibold text-xl md:text-3xl mb-6">Editar Categoría</h2>
+
+        <form [formGroup]="Categoryform" (ngSubmit)="categoryUpdate()">
+            <div class="mb-2">
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+                <div class="mt-2">
+                    <input id="name" formControlName="name" type="text" required 
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                ring-gray-300  focus:ring-2 focus:ring-inset 
+                focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="name.valid || name.pristine">
+                    @if (name.hasError('required')) {
+                        <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    } @else if (name.hasError('minlength')) {
+                        <span class="text-red-600 font-semibold">El nombre ingresado es demasiado corto</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Descripción</label>
+                <div class="mt-2">
+                    <textarea rows="3" formControlName="description" id="description" 
+                    class="lock w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                    ring-gray-300  focus:ring-2 focus:ring-inset 
+                    focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="description.valid || description.pristine">
+                    @if (description.hasError('required')) {
+                        <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    } @else if (description.hasError('minlength')) {
+                        <span class="text-red-600 font-semibold">La descripción ingresada es demasiado corta</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="warning" class="block text-sm font-medium leading-6 text-gray-900">Advertencia</label>
+                <div class="mt-2">
+                    <textarea rows="3" formControlName="warning" id="warning" 
+                    class="lock w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                    ring-gray-300  focus:ring-2 focus:ring-inset 
+                    focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="warning.valid || warning.pristine">
+                    <span class="text-red-600 font-semibold">La Advertencia ingresada es demasiado corta</span>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Imagen</label>
+                <div class="mt-2">
+                    <input id="image" formControlName="image" type="text" required 
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                ring-gray-300  focus:ring-2 focus:ring-inset 
+                focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="image.valid || image.pristine">
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                </div>
+            </div>
+
+            <div>
+                <button class="hover:shadow-form rounded-md bg-[#6A64F1] py-2 px-8 font-semibold 
+                    text-white outline-none">
+                    Actualizar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
