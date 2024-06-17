@@ -80,6 +80,33 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'clientes',
+        title: 'Clientes',
+        canActivate: [authorizationGuard],
+        children: [
+            {
+                path: 'list',
+                title: 'List',
+                loadComponent: () => import('./pages/client/list/list.component')
+            },
+            {
+                path: 'create',
+                title: 'Create',
+                loadComponent: () => import('./pages/client/create/create.component')
+            },
+            {
+                path: 'edit/:id',
+                title: 'Edit',
+                loadComponent: () => import('./pages/client/edit/edit.component')
+            }, 
+            {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
