@@ -33,7 +33,7 @@ export class LocalstorageService {
     }
 
     const tokenInfo = jwtDecode(token);
-    const isTokenExpired = Date.now() >= tokenInfo['exp']! * 1000;
+    const isTokenExpired: boolean = Date.now() >= tokenInfo['exp']! * 1000;
     
     if (isTokenExpired) this.deleteToken();
     return isTokenExpired;

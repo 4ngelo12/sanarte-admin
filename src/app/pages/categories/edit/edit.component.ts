@@ -50,8 +50,6 @@ export default class EditComponent implements OnInit {
 
   categoryUpdate() {
     if (this.Categoryform.invalid) {
-      console.log(this.Categoryform.value)
-      console.log('Formulario invalido');
       return;
     }
 

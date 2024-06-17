@@ -6,12 +6,12 @@
     @defer {
         <app-spinner />
         
-        <app-list-data [columnsValue]="columns" [datasourcesValue]="services"/>
+        <app-list-data [columnsValue]="columns" [datasourcesValue]="services" (action)="onAction($event)"/>
     }
 } @else {
     @defer {
         <app-spinner />
         
-        <app-table-data [columnsValue]="columns" [datasourcesValue]="services"/>
+        <app-table-data [columnsValue]="columns" [datasourcesValue]="services" (action)="onAction($event)"/>
     }
 }

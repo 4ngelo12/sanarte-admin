@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { INewCategory } from '@app/core/interfaces/Categories';
@@ -6,7 +7,7 @@ import { LocalstorageService } from '@app/core/services/localstorage.service';
 
 @Component({
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './create.component.html',
   styles: ``
 })

@@ -5,12 +5,12 @@
                 <thead class="text-xs text-black uppercase bg-[#cba879]">
                     <tr>
                         @for(column of columns; track $index){
-                        <th scope="col" class="px-4 py-3">
+                        <th scope="col" class="px-3 py-3">
                             {{ column }}
                         </th>
                         }
 
-                        <th scope="col" class="px-4 py-3">
+                        <th scope="col" class="px-3 py-3">
                             Acciones
                         </th>
                     </tr>
@@ -19,7 +19,7 @@
                     @for(data of dataSources; track $index){
                     <tr class="border-b" [ngClass]="$index % 2 === 0 ? 'bg-[#ede4d3]' : 'bg-[#c7b194]'">
                         @for(nombre of columns; track $index ){
-                        <td [attr.data-titulo]="nombre" class="px-4 py-4 truncado"
+                        <td [attr.data-titulo]="nombre" class="px-4 py-2 truncado"
                             [ngClass]="data[nombre] === null ? 'text-center ': ''">
                             @if (data[nombre] !== null) {
                             {{ data[nombre] }}
@@ -29,7 +29,7 @@
                         </td>
                         }
 
-                        <td class="py-4 text-left ">
+                        <td class="py-3 text-left ">
                             <a class="font-medium text-blue-600 dark:text-blue-500 hover:cursor-pointer pr-7"
                                 (click)="onAction('Editar',data)">Edit</a>
                             <a class="font-medium text-blue-600 dark:text-blue-500 hover:cursor-pointer"
