@@ -33,15 +33,6 @@ export default class CreateComponent implements OnInit {
       window.location.reload();
     }
 
-    this.reservationForm = this.fb.group({
-      date_reservation: ['', [Validators.required,
-      Validators.pattern(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/)]],
-      time_reservation: ['', [Validators.required,
-      Validators.pattern(/^([0-1]{1}\d{1}:[0-5]{1}\d{1})$|^([2]{1}[0-3]{1}:[0-5]{1}\d{1})$/)]],
-      service_id: ['', [Validators.required]],
-      client_id: ['', [Validators.required]],
-    });
-
     await this.getServices();
     await this.getClients();
     await this.createForm();
