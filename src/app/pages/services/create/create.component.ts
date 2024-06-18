@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ICategory } from '@app/core/interfaces/Categories';
 import { INewService } from '@app/core/interfaces/Services';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { CategoryService } from '@app/core/services/category.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import { ServiceService } from '@app/core/services/service.service';
@@ -18,7 +19,7 @@ export default class CreateComponent implements OnInit {
   categoryData: ICategory[] = [];
 
   constructor(private servicesService: ServiceService, private categoryService: CategoryService,
-    private lsService: LocalstorageService, private fb: FormBuilder) {
+    private alertService: AlertsService, private lsService: LocalstorageService, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -54,6 +55,7 @@ export default class CreateComponent implements OnInit {
 
   submitService() {
     if (this.ServiceForm.invalid) {
+      this.alertService.error(undefined, 'Formulario invalido, por favor llene los campos requeridos');
       return;
     }
 
@@ -64,7 +66,7 @@ export default class CreateComponent implements OnInit {
     } else if (this.ServiceForm.value.durationMax === null) {
       duration = [this.ServiceForm.value.durationMin];
     } else {
-      console.log('La duración máxima debe ser mayor a la mínima');
+      this.alertService.error(undefined, 'La duración máxima debe ser mayor a la duración mínima');
       return;
     }
 
@@ -76,13 +78,10 @@ export default class CreateComponent implements OnInit {
     this.servicesService.newService(this.serviceData).subscribe({
       next: (resp: any) => {
         this.ServiceForm.reset();
-        console.log(resp);
-      },
-      complete: () => {
-        console.log('Service created');
+        this.alertService.success(resp.message);
       },
       error: (err: any) => {
-        console.log(err);
+        this.alertService.error(undefined, err.error.message);
       }
     });
   }

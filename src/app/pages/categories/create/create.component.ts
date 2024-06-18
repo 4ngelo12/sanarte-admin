@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { INewCategory } from '@app/core/interfaces/Categories';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { CategoryService } from '@app/core/services/category.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -16,7 +18,7 @@ export default class CreateComponent implements OnInit {
   categoryData: INewCategory = {} as INewCategory;
 
   constructor(private categoryService: CategoryService, private lsService: LocalstorageService,
-    private fb: FormBuilder) { }
+    private alertService: AlertsService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     const tokenValidate = this.lsService.validateToken();
@@ -34,24 +36,23 @@ export default class CreateComponent implements OnInit {
 
   categorySubmit() {
     if (this.Categoryform.invalid) {
+      this.alertService.error(undefined, 'Formulario invalido');
       return;
     }
 
     if (this.Categoryform.value.warning === '') {
       this.Categoryform.value.warning = null;
     }
+    
 
     this.categoryData = this.Categoryform.value;
     this.categoryService.newCategory(this.categoryData).subscribe({
       next: (resp: any) => {
         this.Categoryform.reset();
-        console.log(resp);
+        this.alertService.success(resp.message);
       },
-      complete: () => {
-        console.log('Category created');
-      },
-      error: (err: any) => {
-        console.log(err);
+      error: (err: HttpErrorResponse) => {
+        this.alertService.error(undefined, err.error.errors.name[0]);
       }
     });
   }

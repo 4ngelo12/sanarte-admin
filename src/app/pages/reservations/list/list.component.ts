@@ -6,6 +6,7 @@ import { ListDataComponent } from '@app/components/list-data/list-data.component
 import { TableDataComponent } from '@app/components/table-data/table-data.component';
 import { IReservation } from '@app/core/interfaces/Reservations';
 import { TableAction, getEntityPropiedades } from '@app/core/interfaces/Table-Column';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import { ReservationService } from '@app/core/services/reservation.service';
 import SpinnerComponent from '@app/shared/spinner/spinner.component';
@@ -51,9 +52,6 @@ export default class ListComponent implements OnInit {
     this.reservationSercice.getReservations().subscribe({
       next: (data: any) => {
         this.reservations = data.data;
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
   }

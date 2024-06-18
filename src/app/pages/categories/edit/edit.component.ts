@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ICategory } from '@app/core/interfaces/Categories';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { CategoryService } from '@app/core/services/category.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import SpinnerComponent from '@app/shared/spinner/spinner.component';
@@ -18,9 +19,9 @@ export default class EditComponent implements OnInit {
   idCategory: string = this.router.url.split('/')[3];
 
   constructor(private categoryService: CategoryService, private lsService: LocalstorageService,
-    private router: Router, private fb: FormBuilder) { }
+    private alertService: AlertsService, private router: Router, private fb: FormBuilder) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const tokenValidate = this.lsService.validateToken();
     if (tokenValidate) {
       window.location.reload();
@@ -34,22 +35,24 @@ export default class EditComponent implements OnInit {
       image: ['', [Validators.required]]
     });
 
-    this.getCategoryDataById(this.idCategory);
+    await this.getCategoryDataById(this.idCategory);
   }
 
-  getCategoryDataById(id: string) {
+  async getCategoryDataById(id: string) {
     this.categoryService.getCategoryById(id).subscribe({
       next: (data: any) => {
         this.Categoryform.patchValue(data.data);
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, error.error.message);
+        this.router.navigate(['/categorias']);
       }
     });
   }
 
   categoryUpdate() {
     if (this.Categoryform.invalid) {
+      this.alertService.error(undefined, 'Formulario invalido, por favor llene los campos requeridos');
       return;
     }
 
@@ -60,13 +63,13 @@ export default class EditComponent implements OnInit {
     this.categoryData = this.Categoryform.value;
     this.categoryService.updateCategory(this.categoryData).subscribe({
       next: (resp: any) => {
-        console.log(resp);
+        this.alertService.success(resp.message);
       },
       complete: () => {
         this.router.navigate(['/categorias']);
       },
       error: (err: any) => {
-        console.log(err);
+        this.alertService.error(undefined, 'Hubo un problema al actualizar la categoría, por favor intente de nuevo');
       }
     });
   }

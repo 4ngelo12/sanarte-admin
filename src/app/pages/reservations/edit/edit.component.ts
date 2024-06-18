@@ -6,6 +6,7 @@ import { IClient } from '@app/core/interfaces/Clients';
 import { IReservation } from '@app/core/interfaces/Reservations';
 import { IService } from '@app/core/interfaces/Services';
 import { IStatus } from '@app/core/interfaces/Status';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { ClientService } from '@app/core/services/client.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import { ReservationService } from '@app/core/services/reservation.service';
@@ -30,9 +31,8 @@ export default class EditComponent {
   reservationId: string = this.router.url.split('/')[3];
 
   constructor(private reservationService: ReservationService, private clientService: ClientService,
-    private statusService: StatusService,
-    private serviceService: ServiceService, private lsService: LocalstorageService,
-    private router: Router, private fb: FormBuilder) { }
+    private statusService: StatusService, private serviceService: ServiceService, private lsService: LocalstorageService,
+    private alertService: AlertsService, private router: Router, private fb: FormBuilder) { }
 
   async ngOnInit(): Promise<void> {
     const tokenValidate = this.lsService.validateToken();
@@ -43,7 +43,7 @@ export default class EditComponent {
     await this.getClients();
     await this.getStatus();
     await this.getServices();
-    
+
     await this.initializeForm();
   }
 
@@ -61,7 +61,7 @@ export default class EditComponent {
       status_id: ['', [Validators.required]]
     });
 
-    await this.getReservationDataById(this.reservationId);    
+    await this.getReservationDataById(this.reservationId);
   }
 
   async getReservationDataById(id: string) {
@@ -69,12 +69,17 @@ export default class EditComponent {
       next: (data: any) => {
         this.reservationForm.patchValue(data.data);
         if (data.data.status_id === 3) {
-          console.log('No se puede editar una reserva cancelada');
+          this.alertService.warning('No se puede editar una reserva cancelada'	);
+          this.router.navigate(['/reservas']);
+        } else if (data.data.status_id === 2) {
+          this.alertService.warning('No se puede editar una reserva finalizada');
+          this.router.navigate(['/reservas']);
         }
         this.isFormInitialized = true;
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, error.error.message);
+        this.router.navigate(['/reservas']);
       }
     });
   }
@@ -85,7 +90,7 @@ export default class EditComponent {
         this.clientsData = data.data;
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, error.error.message);
       }
     });
   }
@@ -96,7 +101,7 @@ export default class EditComponent {
         this.servicesData = data;
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, error.error.message);
       }
     });
   }
@@ -107,31 +112,32 @@ export default class EditComponent {
         this.statusData = data.data;
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, error.error.message);
       }
     })
   }
 
   reservationUpdate(): void {
     if (this.reservationForm.invalid) {
+      this.alertService.error(undefined, 'Formulario invalido, por favor llene los campos requeridos');
       return;
     }
 
     if (this.reservationForm.value.date_reservation <= new Date().toISOString().split('T')[0]) {
-      console.log('La fecha de la reserva no puede ser menor ni la fecha actual');
+      this.alertService.error(undefined, 'La fecha de la reserva no puede ser menor ni igual a la fecha actual');
       return;
     }
 
     this.reservationData = this.reservationForm.value;
     this.reservationService.updateReservation(this.reservationData).subscribe({
       next: (resp: any) => {
-        console.log(resp);
+        this.alertService.success(resp.message)
       },
       complete: () => {
         this.router.navigate(['/reservas']);
       },
       error: (err: any) => {
-        console.log(err);
+        this.alertService.error(undefined, err.error.message);
       }
     });
   }

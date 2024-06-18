@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IClient } from '@app/core/interfaces/Clients';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { ClientService } from '@app/core/services/client.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import SpinnerComponent from '@app/shared/spinner/spinner.component';
@@ -19,7 +20,7 @@ export default class EditComponent implements OnInit {
   idClient: string = this.router.url.split('/')[3];
 
   constructor(private clientService: ClientService, private lsService: LocalstorageService,
-    private router: Router, private fb: FormBuilder) { }
+    private alertService: AlertsService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     const tokenValidate = this.lsService.validateToken();
@@ -44,27 +45,29 @@ export default class EditComponent implements OnInit {
         this.clientform.patchValue(data.data);
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, error.error.message);
+        this.router.navigate(['/clientes']);
       }
     });
   }
 
   clientUpdate() {
     if (this.clientform.invalid) {
+      this.alertService.error(undefined, 'Formulario invalido, por favor llene los campos requeridos');
       return;
     }
 
     this.clientData = this.clientform.value;
     this.clientService.updateClient(this.clientData).subscribe({
       next: (resp: any) => {
+        this.alertService.success(resp.message);
         this.clientform.reset();
-        console.log(resp);
       },
       complete: () => {
         this.router.navigate(['/clientes']);
       },
       error: (err: any) => {
-        console.log(err);
+        this.alertService.error(undefined, 'Hubo un problema al actualizar la categoría, por favor intente de nuevo');
       }
     });
   }

@@ -6,6 +6,7 @@ import { ListDataComponent } from '@app/components/list-data/list-data.component
 import { TableDataComponent } from '@app/components/table-data/table-data.component';
 import { IClient } from '@app/core/interfaces/Clients';
 import { TableAction, getEntityPropiedades } from '@app/core/interfaces/Table-Column';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { ClientService } from '@app/core/services/client.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import SpinnerComponent from '@app/shared/spinner/spinner.component';
@@ -32,7 +33,7 @@ export default class ListComponent implements OnInit {
   isMobile = toSignal(this.isMobile$, { initialValue: false });
 
   constructor(private clientService: ClientService, private lsService: LocalstorageService, 
-    private router: Router) {
+    private alertService: AlertsService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -52,9 +53,6 @@ export default class ListComponent implements OnInit {
       next: (data: any) => {
         this.clients = data.data;
       },
-      error: (error) => {
-        console.error(error);
-      }
     });
   }
 
@@ -62,24 +60,27 @@ export default class ListComponent implements OnInit {
     if (action.action == 'Editar') {
       this.edit(action.row.id)
     } else if (action.action == 'Eliminar') {
-      this.delete(action.row.id)
+      this.alertService.confirmBox('Estas a punto de eliminar los datos de este cliente').then((result) => {
+        if (result.isConfirmed) {
+          this.alertService.success('Datos eliminados correctamente');
+          this.delete(action.row.id);
+        }
+      });
     }
   }
 
   edit(id: number) {
     this.router.navigate(['/clientes/edit', id]);
-    console.log("editar", id)
   }
 
   delete(id: number) {
     this.clientService.deleteClient(id.toString()).subscribe({
       next: (data: any) => {
-        console.log(data);
         this.showFirstChild = false;
         setTimeout(() => {this.getValues(), this.showFirstChild = true}, 0);
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, 'Hubo un problema al eliminar la categoría, por favor intente de nuevo');
       }
     })
   }

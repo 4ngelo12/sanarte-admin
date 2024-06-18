@@ -6,6 +6,7 @@ import { ListDataComponent } from '@app/components/list-data/list-data.component
 import { TableDataComponent } from '@app/components/table-data/table-data.component';
 import { ICategory } from '@app/core/interfaces/Categories';
 import { TableAction, getEntityPropiedades } from '@app/core/interfaces/Table-Column';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { CategoryService } from '@app/core/services/category.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import SpinnerComponent from '@app/shared/spinner/spinner.component';
@@ -32,7 +33,7 @@ export default class ListComponent implements OnInit {
   isMobile = toSignal(this.isMobile$, { initialValue: false });
 
   constructor(private categorySercice: CategoryService, private lsService: LocalstorageService, 
-    private router: Router) {
+    private alertService: AlertsService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -62,23 +63,27 @@ export default class ListComponent implements OnInit {
     if (action.action == 'Editar') {
       this.edit(action.row.id)
     } else if (action.action == 'Eliminar') {
-      this.delete(action.row.id)
+      this.alertService.confirmBox('Estas a punto de eliminar esta categoía').then((result) => {
+        if (result.isConfirmed) {
+          this.alertService.success('Categoria eliminada con éxito');
+          this.delete(action.row.id);
+        }
+      });
     }
   }
 
   edit(id: number) {
     this.router.navigate(['/categorias/edit', id]);
-    console.log("editar", id)
   }
 
   delete(id: number) {
     this.categorySercice.deleteCategory(id.toString()).subscribe({
       next: (data: any) => {
-        console.log(data);
         this.showFirstChild = false;
         setTimeout(() => {this.getValues(), this.showFirstChild = true}, 0);
       },
       error: (error) => {
+        this.alertService.error(undefined, 'Hubo un problema al eliminar la categoría, por favor intente de nuevo');
         console.error(error);
       }
     })

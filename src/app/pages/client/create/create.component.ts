@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { INewClient } from '@app/core/interfaces/Clients';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { ClientService } from '@app/core/services/client.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 
@@ -16,7 +17,7 @@ export default class CreateComponent implements OnInit {
   clientData: INewClient = {} as INewClient;
 
   constructor(private clientService: ClientService, private lsService: LocalstorageService,
-    private fb: FormBuilder) { }
+    private alertService: AlertsService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     const tokenValidate = this.lsService.validateToken();
@@ -34,6 +35,7 @@ export default class CreateComponent implements OnInit {
 
   clientSubmit() {
     if (this.clientform.invalid) {
+      this.alertService.error(undefined, 'Formulario invalido, por favor llene los campos requeridos');
       return;
     }
 
@@ -41,13 +43,10 @@ export default class CreateComponent implements OnInit {
     this.clientService.newClient(this.clientData).subscribe({
       next: (resp: any) => {
         this.clientform.reset();
-        console.log(resp);
-      },
-      complete: () => {
-        console.log('Client created');
+        this.alertService.success(resp.message);
       },
       error: (err: any) => {
-        console.log(err);
+        this.alertService.error(undefined, err.error.message);
       }
     });
   }

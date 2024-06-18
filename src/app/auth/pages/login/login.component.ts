@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '@app/core/interfaces/Login';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { AuthService } from '@app/core/services/auth.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 
@@ -15,18 +16,19 @@ export default class LoginComponent implements OnInit {
   Loginform!: FormGroup;
   loginData: Login = {} as Login;
 
-  constructor(private authService: AuthService, private lsService: LocalstorageService,
+  constructor(private authService: AuthService, private lsService: LocalstorageService, private alertService: AlertsService,
     private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.Loginform = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   loginSubmit() {
     if (this.Loginform.invalid) {
+      this.alertService.error('Acceso no autorizado', 'Por favor, llena los campos requeridos');
       return;
     }
 
@@ -39,7 +41,7 @@ export default class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error: (err: any) => {
-        console.log(err);
+        this.alertService.error('Acceso no Autorizado', err.error.message);
       }
     });
   }

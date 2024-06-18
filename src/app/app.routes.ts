@@ -26,33 +26,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/home/home.component')
     },
     {
-        path: 'servicios',
-        title: 'Servicios',
-        canActivate: [authorizationGuard],
-        children: [
-            {
-                path: 'list',
-                title: 'List',
-                loadComponent: () => import('./pages/services/list/list.component')
-            },
-            {
-                path: 'create',
-                title: 'Create',
-                loadComponent: () => import('./pages/services/create/create.component')
-            },
-            {
-                path: 'edit/:id',
-                title: 'Edit',
-                loadComponent: () => import('./pages/services/edit/edit.component')
-            },
-            {
-                path: '',
-                redirectTo: 'list',
-                pathMatch: 'full'
-            }
-        ]
-    },
-    {
         path: 'categorias',
         title: 'Categorias',
         canActivate: [authorizationGuard],
@@ -71,6 +44,33 @@ export const routes: Routes = [
                 path: 'edit/:id',
                 title: 'Edit',
                 loadComponent: () => import('./pages/categories/edit/edit.component')
+            },
+            {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
+        path: 'servicios',
+        title: 'Servicios',
+        canActivate: [authorizationGuard],
+        children: [
+            {
+                path: 'list',
+                title: 'List',
+                loadComponent: () => import('./pages/services/list/list.component')
+            },
+            {
+                path: 'create',
+                title: 'Create',
+                loadComponent: () => import('./pages/services/create/create.component')
+            },
+            {
+                path: 'edit/:id',
+                title: 'Edit',
+                loadComponent: () => import('./pages/services/edit/edit.component')
             },
             {
                 path: '',

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { ICategory } from '@app/core/interfaces/Categories';
 import { IService } from '@app/core/interfaces/Services';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { CategoryService } from '@app/core/services/category.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import { ServiceService } from '@app/core/services/service.service';
@@ -21,17 +22,16 @@ export default class EditComponent {
   idService: string = this.router.url.split('/')[3];
 
   constructor(private servicesService: ServiceService, private categoryService: CategoryService,
-    private lsService: LocalstorageService, private router: Router, private fb: FormBuilder) {
+    private lsService: LocalstorageService, private router: Router,
+    private alertService: AlertsService, private fb: FormBuilder) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const tokenValidate = this.lsService.validateToken();
 
     if (tokenValidate) {
       window.location.reload();
     }
-
-    this.getCategoryData();
 
     this.ServiceForm = this.fb.group({
       id: [this.idService],
@@ -45,16 +45,17 @@ export default class EditComponent {
       category_id: ['', [Validators.required]],
     });
 
+    await this.getCategoryData();
     this.getServicesDataById(this.idService);
   }
 
-  getCategoryData() {
+  async getCategoryData() {
     this.categoryService.getCategories().subscribe({
       next: (data: any) => {
         this.categoryData = data.data;
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, error.error.message);
       }
     });
   }
@@ -68,13 +69,15 @@ export default class EditComponent {
         this.ServiceForm.get('durationMax')?.setValue(datos.duration[1]);
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, error.error.message);
+        this.router.navigate(['/servicios']);
       }
     });
   }
 
   updateService() {
     if (this.ServiceForm.invalid) {
+      this.alertService.error(undefined, 'Formulario invalido, por favor llene los campos requeridos');
       return;
     }
 
@@ -85,7 +88,7 @@ export default class EditComponent {
     } else if (this.ServiceForm.value.durationMax === undefined || this.ServiceForm.value.durationMax === null) {
       duration = [this.ServiceForm.value.durationMin];
     } else {
-      console.log('La duración máxima debe ser mayor a la mínima');
+      this.alertService.error(undefined, 'La duración máxima debe ser mayor a la duración mínima');
       return;
     }
 
@@ -94,16 +97,15 @@ export default class EditComponent {
     delete this.ServiceForm.value.durationMax;
 
     this.serviceData = this.ServiceForm.value;
-    console.log(this.serviceData);
     this.servicesService.updateService(this.serviceData).subscribe({
       next: (resp: any) => {
-        console.log(resp);
+        this.alertService.success(resp.message);
       },
       complete: () => {
         this.router.navigate(['/servicios']);
       },
       error: (err: any) => {
-        console.log(err);
+        this.alertService.error(undefined, err.error.message);
       }
     });
   }

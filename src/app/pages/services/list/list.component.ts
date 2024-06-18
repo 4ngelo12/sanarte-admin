@@ -6,6 +6,7 @@ import { ListDataComponent } from '@app/components/list-data/list-data.component
 import { TableDataComponent } from '@app/components/table-data/table-data.component';
 import { IService } from '@app/core/interfaces/Services';
 import { TableAction, getEntityPropiedades } from '@app/core/interfaces/Table-Column';
+import { AlertsService } from '@app/core/services/alerts.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
 import { ServiceService } from '@app/core/services/service.service';
 import SpinnerComponent from '@app/shared/spinner/spinner.component';
@@ -32,7 +33,7 @@ export default class ListComponent {
   isMobile = toSignal(this.isMobile$, { initialValue: false });
 
   constructor(private servicesService: ServiceService, private lsService: LocalstorageService,
-    private router: Router) { }
+    private alertService: AlertsService, private router: Router) { }
 
   ngOnInit(): void {
     const tokenValidate = this.lsService.validateToken();
@@ -51,24 +52,25 @@ export default class ListComponent {
     this.servicesService.getServices().subscribe({
       next: (data: any) => {
         this.services = data;
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
   }
 
   onAction(action: TableAction) {
     if (action.action == 'Editar') {
-      this.edit(action.row.id)
+      this.edit(action.row.id);
     } else if (action.action == 'Eliminar') {
-      this.delete(action.row.id)
+      this.alertService.confirmBox('Estas a punto de desactivar este servicio').then((result) => {
+        if (result.isConfirmed) {
+          this.alertService.success('Servicio desactivado');
+          this.delete(action.row.id);
+        }
+      });
     }
   }
 
   edit(id: number) {
     this.router.navigate(['/servicios/edit', id]);
-    console.log("editar", id)
   }
 
   delete(id: number) {
@@ -78,7 +80,7 @@ export default class ListComponent {
         setTimeout(() => {this.getValues(), this.showTable = true}, 0);
       },
       error: (error) => {
-        console.error(error);
+        this.alertService.error(undefined, 'Hubo un problema al eliminar la categoría, por favor intente de nuevo');
       }
     })
   }
