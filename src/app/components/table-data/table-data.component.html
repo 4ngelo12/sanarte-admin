@@ -29,11 +29,13 @@
                         </td>
                         }
 
-                        <td class="py-3 text-left ">
+                        <td class="py-3" [ngClass]="!showDelete ? 'text-center' : ''">
                             <a class="font-medium text-blue-600 dark:text-blue-500 hover:cursor-pointer pr-7"
                                 (click)="onAction('Editar',data)">Edit</a>
+                            @if (showDelete) {
                             <a class="font-medium text-blue-600 dark:text-blue-500 hover:cursor-pointer"
                                 (click)="onAction('Eliminar',data)">Delete</a>
+                            }
                         </td>
                     </tr>
                     }

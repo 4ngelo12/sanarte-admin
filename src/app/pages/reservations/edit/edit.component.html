@@ -1,0 +1,114 @@
+@defer {
+<app-spinner />
+}
+
+@if (isFormInitialized){
+<div class="flex items-center justify-center min-h-full ms-16 me-5 md:ms-0">
+    <div class="mx-auto w-full max-w-xl p-6 rounded-md bg-[#dcceb2]">
+        <h2 class="text-center font-semibold text-xl md:text-3xl mb-6">Registrar Reserva</h2>
+
+        <form [formGroup]="reservationForm" (ngSubmit)="reservationUpdate()" class="md:grid grid-cols-2 gap-x-3">
+            <div class="mb-2">
+                <label for="date" class="block text-sm font-medium leading-6 text-gray-900">
+                    Fecha de Reserva
+                </label>
+                <div class="mt-2">
+                    <input id="date_reservation" formControlName="date_reservation" type="date" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                ring-gray-300  focus:ring-2 focus:ring-inset 
+                focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md"
+                    [hidden]="date_reservation.valid || date_reservation.pristine">
+                    @if (date_reservation.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    } @else if (date_reservation.hasError('pattern')) {
+                    <span class="text-red-600 font-semibold">El formato ingresado es incorrecto</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="time_reservation" class="block text-sm font-medium leading-6 text-gray-900">Hora</label>
+                <div class="mt-2">
+                    <input id="time_reservation" formControlName="time_reservation" type="time" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                ring-gray-300">
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md"
+                    [hidden]="time_reservation.valid || time_reservation.pristine">
+                    @if (time_reservation.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    } @else if (time_reservation.hasError('pattern')) {
+                    <span class="text-red-600 font-semibold">El formato ingresado es incorrecto</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2 col-span-2">
+                <label for="service_id" class="block text-sm font-medium leading-6 text-gray-900">Servicio</label>
+                <div class="mt-2">
+                    <select formControlName="service_id" id="service_id" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        <option selected disabled>Selecciona un Servicio</option>
+                        @for (item of servicesData; track $index) {
+                        <option [value]="item.id" disabled>{{item.name}}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="service_id.valid || service_id.pristine">
+                    @if (service_id.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2 col-span-2">
+                <label for="client_id" class="block text-sm font-medium leading-6 text-gray-900">Cliente</label>
+                <div class="mt-2">
+                    <select formControlName="client_id" id="client_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                       block w-full p-2.5">
+                        @for (item of clientsData; track $index) {
+                        <option [value]="item.id" disabled>{{item.name}} {{item.lastname}}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="client_id.valid || client_id.pristine">
+                    @if (client_id.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2 col-span-2">
+                <label for="status_id" class="block text-sm font-medium leading-6 text-gray-900">Estado de la
+                    Reserva</label>
+                <div class="mt-2">
+                    <select formControlName="status_id" id="status_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        block w-full p-2.5">
+                        @for (item of statusData; track $index) {
+                        <option [value]="item.id">{{item.name}}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="status_id.valid || status_id.pristine">
+                    @if (status_id.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    }
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" [disabled]="reservationForm.value.status_id === 3" class="hover:shadow-form rounded-md bg-[#496e50] py-2 px-8 font-semibold
+                    text-white outline-none hover:bg-[#336b3d] disabled:bg-[#6ea874]">
+                    Guardar
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+}

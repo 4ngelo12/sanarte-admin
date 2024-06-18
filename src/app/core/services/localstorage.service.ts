@@ -38,4 +38,14 @@ export class LocalstorageService {
     if (isTokenExpired) this.deleteToken();
     return isTokenExpired;
   }
+
+  public getUserInfo() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return null;
+    }
+
+    const tokenInfo = jwtDecode(token);
+    return tokenInfo;
+  }
 }

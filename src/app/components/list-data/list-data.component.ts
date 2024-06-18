@@ -12,6 +12,7 @@ import { TableAction } from '@app/core/interfaces/Table-Column';
 export class ListDataComponent {
   columns: string[] = [];
   dataSources: any = [];
+  showDelete:boolean = true;
 
   @Input() set columnsValue(value: string[]) {
     this.columns = value
@@ -19,6 +20,10 @@ export class ListDataComponent {
 
   @Input() set datasourcesValue(value: any) {
     this.dataSources = value
+  }
+
+  @Input() set showDeleteValue(value: boolean) {
+    this.showDelete = value
   }
 
   @Output() action: EventEmitter<TableAction> = new EventEmitter();

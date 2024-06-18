@@ -44,7 +44,7 @@ export const routes: Routes = [
                 path: 'edit/:id',
                 title: 'Edit',
                 loadComponent: () => import('./pages/services/edit/edit.component')
-            }, 
+            },
             {
                 path: '',
                 redirectTo: 'list',
@@ -71,7 +71,7 @@ export const routes: Routes = [
                 path: 'edit/:id',
                 title: 'Edit',
                 loadComponent: () => import('./pages/categories/edit/edit.component')
-            }, 
+            },
             {
                 path: '',
                 redirectTo: 'list',
@@ -98,7 +98,34 @@ export const routes: Routes = [
                 path: 'edit/:id',
                 title: 'Edit',
                 loadComponent: () => import('./pages/client/edit/edit.component')
-            }, 
+            },
+            {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
+        path: 'reservas',
+        title: 'Reservas',
+        canActivate: [authorizationGuard],
+        children: [
+            {
+                path: 'list',
+                title: 'List',
+                loadComponent: () => import('./pages/reservations/list/list.component')
+            },
+            {
+                path: 'create',
+                title: 'Create',
+                loadComponent: () => import('./pages/reservations/create/create.component')
+            },
+            {
+                path: 'edit/:id',
+                title: 'Edit',
+                loadComponent: () => import('./pages/reservations/edit/edit.component')
+            },
             {
                 path: '',
                 redirectTo: 'list',

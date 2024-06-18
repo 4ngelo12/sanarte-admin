@@ -1,5 +1,6 @@
 import { Category } from "./Categories";
 import { Client } from "./Clients";
+import { Reservation } from "./Reservations";
 import { Service } from "./Services";
 
 export interface TableAction<T = any> {
@@ -18,6 +19,8 @@ export const getEntityPropiedades = (entity: string): Array<any> => {
             classResponse = new Service(); break;
         case 'client':
             classResponse = new Client(); break;
+        case 'reservation':
+            classResponse = new Reservation(); break;
 
     }
 
