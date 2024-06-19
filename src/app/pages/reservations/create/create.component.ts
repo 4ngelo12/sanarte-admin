@@ -27,18 +27,12 @@ export default class CreateComponent implements OnInit {
     private userService: UsersService, private serviceService: ServiceService, private lsService: LocalstorageService,
     private alertService: AlertsService, private fb: FormBuilder) { }
 
-  async ngOnInit(): Promise<void>  {
+  async ngOnInit(): Promise<void> {
     const tokenValidate = this.lsService.validateToken();
     if (tokenValidate) {
       window.location.reload();
     }
 
-    await this.getServices();
-    await this.getClients();
-    await this.createForm();
-  }
-
-  async createForm(): Promise<void> {
     this.reservationForm = this.fb.group({
       date_reservation: ['', [Validators.required,
       Validators.pattern(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/)]],
@@ -47,6 +41,9 @@ export default class CreateComponent implements OnInit {
       service_id: ['', [Validators.required]],
       client_id: ['', [Validators.required]],
     });
+
+    await this.getServices();
+    await this.getClients();
   }
 
   async getClients(): Promise<void> {
@@ -60,7 +57,7 @@ export default class CreateComponent implements OnInit {
     });
   }
 
-  async getServices(): Promise<void>  {
+  async getServices(): Promise<void> {
     this.serviceService.getServices().subscribe({
       next: (data: any) => {
         this.servicesData = data;
@@ -79,7 +76,7 @@ export default class CreateComponent implements OnInit {
     const user = this.lsService.getUserInfo();
 
     if (user?.sub !== undefined) {
-      this.userService.getUsers(user?.sub.toString());
+      this.userService.getUserId(user?.sub.toString());
     } else {
       this.alertService.error(undefined, 'No se pudo obtener el usuario');
       return;

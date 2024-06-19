@@ -134,6 +134,33 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'usuarios',
+        title: 'Usuarios',
+        canActivate: [authorizationGuard],
+        children: [
+            {
+                path: 'list',
+                title: 'List',
+                loadComponent: () => import('./pages/users/list/list.component')
+            },
+            {
+                path: 'create',
+                title: 'Create',
+                loadComponent: () => import('./pages/users/create/create.component')
+            },
+            {
+                path: 'edit/:id',
+                title: 'Edit',
+                loadComponent: () => import('./pages/users/edit/edit.component')
+            },
+            {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'

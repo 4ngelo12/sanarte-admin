@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Login } from '@app/core/interfaces/Login';
+import { Login } from '@app/core/interfaces/auth/Login';
 import { AlertsService } from '@app/core/services/alerts.service';
 import { AuthService } from '@app/core/services/auth.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
@@ -21,7 +21,7 @@ export default class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.Loginform = this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }

@@ -2,6 +2,7 @@ import { Category } from "./Categories";
 import { Client } from "./Clients";
 import { Reservation } from "./Reservations";
 import { Service } from "./Services";
+import { User } from "./Usuarios";
 
 export interface TableAction<T = any> {
     action: string; // 'edit' | 'delete' 
@@ -13,6 +14,8 @@ export const getEntityPropiedades = (entity: string): Array<any> => {
     let classResponse: any;
 
     switch (entity) {
+        case 'user':
+            classResponse = new User(); break;
         case 'category':
             classResponse = new Category(); break;
         case 'service':

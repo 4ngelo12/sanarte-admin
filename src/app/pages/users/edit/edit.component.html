@@ -1,0 +1,88 @@
+@defer {
+<app-spinner />
+}
+
+<div class="flex items-center justify-center min-h-full ms-16 me-5 md:ms-0">
+    <div class="mx-auto w-full max-w-xl p-6 rounded-md bg-[#dcceb2]">
+        <h2 class="text-center text-2xl font-bold mb-3">Registrar Usuario</h2>
+
+        <form class="space-y-6" [formGroup]="UpdateForm" (ngSubmit)="registerSubmit()"
+            class="md:grid grid-cols-2 gap-x-3">
+            <div class="mb-2 col-span-2">
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+                <div class="mt-2 ">
+                    <input id="name" formControlName="name" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
+                focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+
+                <div class="bg-red-300 py-2 mt-2 ps-4 rounded-md" [hidden]="name.valid || name.pristine">
+                    @if (name.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    } @else if (name.hasError('minlength')) {
+                    <span class="text-red-600 font-semibold">El nombre debe ser más largo</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2 col-span-2">
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Correo Electrónico</label>
+                <div class="mt-2">
+                    <input id="email" formControlName="email" type="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
+                focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+
+                <div class="bg-red-300 py-2 mt-2 ps-4 rounded-md" [hidden]="email.valid || email.pristine">
+                    @if (email.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    } @else if (email.hasError('email')) {
+                    <span class="text-red-600 font-semibold">Formato de correo invalido</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="role_id" class="block text-sm font-medium leading-6 text-gray-900">Rol</label>
+                <div class="mt-2">
+                    <select formControlName="role_id" id="role_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                     block w-full p-2.5">
+                        @for (item of rolesData; track $index) {
+                        <option [value]="item.id">{{item.name}}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="role_id.valid || role_id.pristine">
+                    @if (role_id.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="state" class="block text-sm font-medium leading-6 text-gray-900">Estado</label>
+                <div class="mt-2">
+                    <select formControlName="state" id="state" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        focus:ring-blue-500  block w-full p-2.5">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="state.valid || state.pristine">
+                    @if (state.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mt-6 col-span-2">
+                <button type="submit" [disabled]="UpdateForm.invalid" class="w-full rounded-md px-3 py-1.5 text-sm leading-6 shadow-sm button-decoration
+                    hover:shadow-form disabled:bg-[#6ea874]">
+                    Actualizar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
