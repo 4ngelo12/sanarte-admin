@@ -51,7 +51,7 @@ export default class ListComponent implements OnInit {
 
     this.categorySercice.getCategories().subscribe({
       next: (data: any) => {
-        this.categories = data.data;
+        this.categories = data;
       },
       error: (error) => {
         console.error(error);

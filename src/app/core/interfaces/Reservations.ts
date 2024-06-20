@@ -27,8 +27,8 @@ export class Reservation {
     id = 0;
     date_reservation = new Date();
     time_reservation = '';
-    status_id = 0;
-    service_id = 0;
-    client_id = 0;
-    user_id = 0;
+    status_name = '';
+    service_name = '';
+    client_name = '';
+    user_name = '';
 }

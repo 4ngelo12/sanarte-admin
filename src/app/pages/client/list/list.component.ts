@@ -51,7 +51,7 @@ export default class ListComponent implements OnInit {
 
     this.clientService.getClients().subscribe({
       next: (data: any) => {
-        this.clients = data.data;
+        this.clients = data;
       },
     });
   }

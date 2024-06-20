@@ -32,7 +32,8 @@ export default class EditComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
       warning: ['', [Validators.minLength(10)]],
-      image: ['', [Validators.required]]
+      state: ['', [Validators.required]],
+      // image: ['', [Validators.required]]
     });
 
     await this.getCategoryDataById(this.idCategory);
@@ -87,8 +88,9 @@ export default class EditComponent implements OnInit {
   get warning() {
     return this.Categoryform.get('warning') as FormGroup;
   }
-
-  get image() {
-    return this.Categoryform.get('image') as FormGroup;
+  
+  get state() {
+    return this.Categoryform.get('state') as FormGroup;
   }
+
 }

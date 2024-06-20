@@ -78,6 +78,24 @@
                 </div>
             </div>
 
+            <div class="mb-2 col-span-2">
+                <label for="state" class="block text-sm font-medium leading-6 text-gray-900">Estado</label>
+                <div class="mt-2">
+                    <select formControlName="state" id="state" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        focus:ring-blue-500  block w-full p-2.5">
+                        <option selected disabled>Selecciona una Categoría</option>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="state.valid || state.pristine">
+                    @if (state.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    }
+                </div>
+            </div>
+
             <div>
                 <button type="submit" [disabled]="clientform.invalid" class="hover:shadow-form rounded-md bg-[#496e50] py-2 px-8 font-semibold
                     text-white outline-none hover:bg-[#336b3d] disabled:bg-[#6ea874]">

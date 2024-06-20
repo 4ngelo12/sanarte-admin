@@ -17,6 +17,7 @@ export interface IClient {
     lastname: string;
     email: string;
     phone: string;
+    state: boolean;
 }
 
 export class Client {
@@ -25,4 +26,5 @@ export class Client {
     lastname = '';
     email = '';
     phone = '';
+    state = false;
 }

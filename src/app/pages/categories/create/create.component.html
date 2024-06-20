@@ -50,19 +50,6 @@
                 </div>
             </div>
 
-            <div class="mb-2">
-                <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Imagen</label>
-                <div class="mt-2">
-                    <input id="image" formControlName="image" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
-                ring-gray-300  focus:ring-2 focus:ring-inset 
-                focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-
-                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="image.valid || image.pristine">
-                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
-                </div>
-            </div>
-
             <div>
                 <button [disabled]="Categoryform.invalid" class="hover:shadow-form rounded-md bg-[#496e50] py-2 px-8 font-semibold
                 text-white outline-none hover:bg-[#336b3d] disabled:bg-[#6ea874]">

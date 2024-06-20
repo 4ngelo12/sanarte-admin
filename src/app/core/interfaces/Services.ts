@@ -1,27 +1,27 @@
 export interface IServicesResponse {
     message: string;
-    status:  number;
-    data:    IService[];
+    status: number;
+    data: IService[];
 }
 
 export interface IService {
-    id:          number;
-    name:        string;
+    id: number;
+    name: string;
     description: string;
-    image:       string;
-    price:       string;
-    duration:    number[];
-    state:       boolean;
+    // image:       string;
+    price: string;
+    duration: number[];
+    state: boolean;
     category_id: number;
 }
 
 export interface INewService {
-    name:        string;
+    name: string;
     description: string;
-    image:       string;
-    price:       string;
-    duration:    number[];
-    state:       boolean;
+    // image:       string;
+    price: string;
+    duration: number[];
+    state: boolean;
     category_id: number;
 }
 
@@ -30,9 +30,9 @@ export class Service {
     id = 0;
     name = '';
     description = '';
-    image = '';
+    // image = '';
     price = '';
     duration = 0;
+    category_name = '';
     state = false;
-    category_id = 0;
 }

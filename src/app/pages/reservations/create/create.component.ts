@@ -43,13 +43,13 @@ export default class CreateComponent implements OnInit {
     });
 
     await this.getServices();
-    await this.getClients();
+    await this.getClientActive();
   }
 
-  async getClients(): Promise<void> {
+  async getClientActive(): Promise<void> {
     this.clientService.getClients().subscribe({
       next: (data: any) => {
-        this.clientsData = data.data;
+        this.clientsData = data;
       },
       error: (error) => {
         this.alertService.error(undefined, error.error.message);
@@ -58,7 +58,7 @@ export default class CreateComponent implements OnInit {
   }
 
   async getServices(): Promise<void> {
-    this.serviceService.getServices().subscribe({
+    this.serviceService.getServiceActive().subscribe({
       next: (data: any) => {
         this.servicesData = data;
       },

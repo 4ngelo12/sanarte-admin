@@ -1,29 +1,31 @@
 export interface INewCategory {
-    name:        string;
+    name: string;
     description: string;
-    warning?:     string;
-    image:       string;
+    warning?: string;
+    // image: string;
 }
 
 export interface ICategoriesResponse {
     message: string;
-    status:  number;
-    data:    ICategory[];
+    status: number;
+    data: ICategory[];
 }
 
 export interface ICategory {
-    id:          number;
-    name:        string;
+    id: number;
+    name: string;
     description: string;
-    warning:     null | string;
-    image:       string;
+    state: boolean;
+    warning: null | string;
+    // image:       string;
 }
 
 
 export class Category {
-    id= 0;
+    id = 0;
     name = '';
-    description= '';
+    description = '';
     warning? = '';
-    image= '';
+    state = false;
+    // image= '';
 }

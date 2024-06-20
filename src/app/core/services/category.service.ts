@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICategoriesResponse, ICategory, INewCategory } from '../interfaces/Categories';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import baseUrl from '../helper/helper';
 
 @Injectable({
@@ -14,8 +14,22 @@ export class CategoryService {
     return this.http.post(`${baseUrl}/categories`, data);
   }
 
-  getCategories(): Observable<ICategoriesResponse[]>{    
-    return this.http.get<ICategoriesResponse[]>(`${baseUrl}/categories`);
+  getCategories(): Observable<ICategory[]>{    
+    return this.http.get<ICategoriesResponse>(`${baseUrl}/categories`).pipe(
+      map(data => data.data.map((service: any) => ({
+        ...service,
+        state: service.state === 1 ? true : false
+      })))
+    );
+  }
+
+  getCategoryActive(): Observable<ICategory[]>{
+    return this.http.get<ICategoriesResponse>(`${baseUrl}/categories/list/active`).pipe(
+      map(data => data.data.map((service: any) => ({
+        ...service,
+        state: service.state === 1 ? true : false
+      })))
+    );
   }
 
   getCategoryById(id: string){

@@ -60,7 +60,7 @@ export default class ListComponent implements OnInit {
     if (action.action == 'Editar') {
       this.edit(action.row.id)
     } else if (action.action == 'Eliminar') {
-      this.alertService.confirmBox('Estas a punto de desactivar este servicio').then((result) => {
+      this.alertService.confirmBox('Estas a punto de desactivar este usuario').then((result) => {
         if (result.isConfirmed) {
           this.alertService.success('Servicio desactivado');
           this.delete(action.row.id);

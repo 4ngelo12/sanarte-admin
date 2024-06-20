@@ -24,6 +24,15 @@ export class ServiceService {
     );
   }
 
+  getServiceActive(): Observable<IService[]>{
+    return this.http.get<IServicesResponse>(`${baseUrl}/services/list/active`).pipe(
+      map(data => data.data.map((service: any) => ({
+        ...service,
+        state: service.state === 1 ? true : false
+      })))
+    );
+  }
+
   getServiceById(id: string): Observable<IService>{
     return this.http.get<IServicesResponse>(`${baseUrl}/services/${id}`).pipe(
       map((service: any) => ({

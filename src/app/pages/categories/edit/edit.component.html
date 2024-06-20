@@ -55,15 +55,20 @@
             </div>
 
             <div class="mb-2">
-                <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Imagen</label>
+                <label for="state" class="block text-sm font-medium leading-6 text-gray-900">Estado</label>
                 <div class="mt-2">
-                    <input id="image" formControlName="image" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
-                ring-gray-300  focus:ring-2 focus:ring-inset 
-                focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <select formControlName="state" id="state" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        focus:ring-blue-500  block w-full p-2.5">
+                        <option selected disabled>Selecciona una Categoría</option>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
                 </div>
 
-                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="image.valid || image.pristine">
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="state.valid || state.pristine">
+                    @if (state.hasError('required')) {
                     <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    }
                 </div>
             </div>
 

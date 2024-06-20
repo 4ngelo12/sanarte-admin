@@ -34,6 +34,7 @@ export default class EditComponent implements OnInit {
       lastname: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(/^[9]\d{8}$/)]],
+      state: ['', [Validators.required]]
     });
 
     this.getClientDataById(this.idClient);
@@ -67,7 +68,7 @@ export default class EditComponent implements OnInit {
         this.router.navigate(['/clientes']);
       },
       error: (err: any) => {
-        this.alertService.error(undefined, 'Hubo un problema al actualizar la categoría, por favor intente de nuevo');
+        this.alertService.error(undefined, 'Hubo un problema al actualizar el cliente, por favor intente de nuevo');
       }
     });
   }
@@ -96,5 +97,9 @@ export default class EditComponent implements OnInit {
 
   get phone() {
     return this.clientform.get('phone') as FormGroup;
+  }
+
+  get state() {
+    return this.clientform.get('state') as FormGroup;
   }
 }

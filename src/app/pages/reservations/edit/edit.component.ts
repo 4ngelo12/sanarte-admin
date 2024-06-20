@@ -40,7 +40,7 @@ export default class EditComponent {
       window.location.reload();
     }
 
-    await this.getClients();
+    await this.getClientActive();
     await this.getStatus();
     await this.getServices();
 
@@ -84,10 +84,10 @@ export default class EditComponent {
     });
   }
 
-  async getClients() {
+  async getClientActive() {
     this.clientService.getClients().subscribe({
       next: (data: any) => {
-        this.clientsData = data.data;
+        this.clientsData = data;
       },
       error: (error) => {
         this.alertService.error(undefined, error.error.message);

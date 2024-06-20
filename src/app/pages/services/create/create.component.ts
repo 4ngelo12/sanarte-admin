@@ -34,7 +34,7 @@ export default class CreateComponent implements OnInit {
     this.ServiceForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      image: ['', [Validators.required]],
+      // image: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       durationMin: ['', [Validators.required, Validators.pattern(/^(?:[1-9]?[0-9]|[12][0-9]{2}|300)$/)]],
       durationMax: [null, [Validators.pattern(/^(?:[1-9]?[0-9]?|[12][0-9]{2}|300)?$/)]],
@@ -43,9 +43,9 @@ export default class CreateComponent implements OnInit {
   }
 
   getCategoryData() {
-    this.categoryService.getCategories().subscribe({
+    this.categoryService.getCategoryActive().subscribe({
       next: (data: any) => {
-        this.categoryData = data.data;
+        this.categoryData = data;
       },
       error: (error) => {
         console.error(error);
@@ -101,10 +101,6 @@ export default class CreateComponent implements OnInit {
 
   get description() {
     return this.ServiceForm.get('description') as FormGroup;
-  }
-
-  get image() {
-    return this.ServiceForm.get('image') as FormGroup;
   }
 
   get price() {
