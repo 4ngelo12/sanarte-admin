@@ -1,29 +1,35 @@
 export interface INewUser {
-    name:              string;
-    email:             string;
-    state:             boolean;
-    role_id:           number;
+    name: string;
+    email: string;
+    state: boolean;
+    role_id: number;
 }
 
 export interface IUsersResponse {
     message: string;
-    status:  number;
-    data:    IUsers[];
+    status: number;
+    data: IUsers[];
 }
 
 export interface IUsers {
-    id:                number;
-    name:              string;
-    email:             string;
-    state:             boolean;
-    role_id:           number;
+    id: number;
+    name: string;
+    email: string;
+    state: boolean;
+    role_name: string;
 }
 
 export interface IUserUpdate {
-    id:                number;
-    name:              string;
-    email:             string;
-    state:             boolean;
+    id: number;
+    name: string;
+    email: string;
+    role_id: number;
+    state: boolean;
+}
+
+export interface Role {
+    id: number;
+    name: string;
 }
 
 export class User {
@@ -31,5 +37,5 @@ export class User {
     name = '';
     email = '';
     state = false;
-    role_id = 0;
+    role_name = '';
 }

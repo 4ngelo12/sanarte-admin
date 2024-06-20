@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authorizationGuard } from './core/guards/authorization.guard';
+import { hasRoleGuard } from './core/guards/has-role.guard';
 
 export const routes: Routes = [
     {
@@ -28,7 +29,10 @@ export const routes: Routes = [
     {
         path: 'categorias',
         title: 'Categorias',
-        canActivate: [authorizationGuard],
+        canActivate: [authorizationGuard, hasRoleGuard],
+        data: {
+            allowedRoles: ['Admin']
+        },
         children: [
             {
                 path: 'list',
@@ -55,7 +59,10 @@ export const routes: Routes = [
     {
         path: 'servicios',
         title: 'Servicios',
-        canActivate: [authorizationGuard],
+        canActivate: [authorizationGuard, hasRoleGuard],
+        data: {
+            allowedRoles:['Admin']
+        },
         children: [
             {
                 path: 'list',
@@ -136,7 +143,10 @@ export const routes: Routes = [
     {
         path: 'usuarios',
         title: 'Usuarios',
-        canActivate: [authorizationGuard],
+        canActivate: [authorizationGuard, hasRoleGuard],
+        data: {
+            allowedRoles:['Admin']
+        },
         children: [
             {
                 path: 'list',

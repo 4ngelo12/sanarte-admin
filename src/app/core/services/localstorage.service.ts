@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalstorageService {
-
-  constructor() { }
+  constructor(private jwtHelper: JwtHelperService) { }
 
   //Guardar token de inicio de sesion
   public setToken(token: any) {
@@ -22,6 +22,7 @@ export class LocalstorageService {
   // Eliminar token de inicio de sesion
   public deleteToken() {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 
   // Validar la vigencia del token
@@ -45,7 +46,16 @@ export class LocalstorageService {
       return null;
     }
 
-    const tokenInfo = jwtDecode(token);
+    // const tokenInfo = jwtDecode(token);
+    const tokenInfo = this.jwtHelper.decodeToken(token);
     return tokenInfo;
+  }
+
+  public setRole(role: string) {
+    localStorage.setItem('role', role);
+  }
+
+  public getRole() {
+    return localStorage.getItem('role');
   }
 }

@@ -5,6 +5,7 @@ import { Login } from '@app/core/interfaces/auth/Login';
 import { AlertsService } from '@app/core/services/alerts.service';
 import { AuthService } from '@app/core/services/auth.service';
 import { LocalstorageService } from '@app/core/services/localstorage.service';
+import { RoleService } from '@app/core/services/role.service';
 
 @Component({
   standalone: true,
@@ -17,7 +18,7 @@ export default class LoginComponent implements OnInit {
   loginData: Login = {} as Login;
 
   constructor(private authService: AuthService, private lsService: LocalstorageService, private alertService: AlertsService,
-    private router: Router, private fb: FormBuilder) { }
+    private roleService: RoleService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.Loginform = this.fb.group({
@@ -36,6 +37,7 @@ export default class LoginComponent implements OnInit {
     this.authService.login(this.loginData).subscribe({
       next: (resp: any) => {
         this.lsService.setToken(resp.token);
+        this.lsService.setRole(this.lsService.getUserInfo().role)
       },
       complete: () => {
         this.router.navigate(['/']);

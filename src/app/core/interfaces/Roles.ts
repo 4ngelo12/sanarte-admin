@@ -10,3 +10,5 @@ export interface IRoles {
     created_at: Date;
     updated_at: Date;
 }
+
+export type Role = 'Admin' | 'Usuario';

@@ -4,6 +4,7 @@ import { initFlowbite } from 'flowbite';
 import HomeComponent from './pages/home/home.component';
 import { SidemenuComponent } from './shared/sidemenu/sidemenu.component';
 import { LocalstorageService } from './core/services/localstorage.service';
+import { RoleService } from './core/services/role.service';
 
 @Component({
   selector: 'app-root',
