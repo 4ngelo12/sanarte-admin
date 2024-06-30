@@ -1,1 +1,52 @@
-<p>home works!</p>
+@defer {
+    <app-spinner />
+    }
+
+<div class="flex flex-col md:flex-row items-start mt-4 gap-4 min-h-full ms-16 me-5 md:ms-0">
+    <div class="bg-[#DBCDAB] py-4 px-8 rounded-md">
+        <h2 class="text-2xl  text-center font-bold">Servicio más reservado</h2>
+
+        <div class="w-full bg-red-500 mt-6"></div>
+
+        <div class="mt-3">
+            <ul>
+                @if (topServices) {
+                @for (item of topServices; track $index) {
+                <li class="text-center">
+                    <span class="font-semibold">{{item.service_name}}: </span>
+                    {{item.total_reservations}} reservas
+                </li>
+                }
+                } @else {
+                <li class="text-center">
+                    - </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="bg-[#DBCDAB] py-4 px-8 rounded-md">
+        <h2 class="text-2xl  text-center font-bold">Días con más reservas</h2>
+
+        <div class="w-full bg-red-500 mt-6"></div>
+
+        <div class="mt-3">
+            <ul>
+                @if (topDaysReservation) {
+                @for (item of topDaysReservation; track $index) {
+                <li class="text-center">
+                    <span class="font-semibold">{{item.day}}: </span>
+                    {{item.total_reservations}} reservas
+                </li>
+                }
+                } @else {
+                <li class="text-center">
+                    - </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>
