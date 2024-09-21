@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TableAction } from '@app/core/interfaces/Table-Column';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @Component({
   selector: 'app-table-data',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgxPaginationModule],
   templateUrl: './table-data.component.html',
   styleUrl: './table-data.component.scss'
 })
@@ -15,6 +16,9 @@ export class TableDataComponent {
   columns: string[] = [];
   dataSources: any = [];
   showDelete:boolean = true;
+  page: number = 1; 
+  totalItems: number | undefined;   
+  @Input() itemsPerPage = 10;
 
   @Input() set columnsValue(value: string[]) {
     this.columns = value
@@ -32,5 +36,13 @@ export class TableDataComponent {
 
   onAction(action: string, row: any): void {
     this.action.emit({ action: action, row: row });
+  }
+
+  ngOnChanges() {
+    this.totalItems = this.dataSources.length;
+  }
+
+  onPageChange(page: number) {
+    this.page = page;
   }
 }

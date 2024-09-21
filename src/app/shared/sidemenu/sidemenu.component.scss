@@ -6,3 +6,11 @@
     width: 3.35rem;
 }
 
+.button-sidenav {
+    color: white;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #4d5b48;
+    }
+}

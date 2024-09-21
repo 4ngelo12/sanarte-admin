@@ -52,3 +52,23 @@
     }
 
 }
+
+
+.ngx-pagination {
+    padding-left: 0px !important;
+}
+
+.ngx-pagination .current,
+.btn-info {
+    background: #a28764 !important;
+    border: transparent !important;
+}
+
+.ngx-pagination .current:hover {
+    background: #d4a86e !important;
+    border: transparent !important;
+}
+
+.bg-selected {
+    background-color: #637558;
+}

@@ -6,14 +6,14 @@
     @defer {
         <app-spinner />
             
-        <app-list-data [columnsValue]="columns" [datasourcesValue]="reservations" [showDeleteValue]="false"
+        <app-list-data [columnsValue]="columns" [datasourcesValue]="reservations" [showDeleteValue]="false" [itemsPerPage]="10"
          (action)="onAction($event)" />
     }
 } @else if (showFirstChild) {
     @defer {
         <app-spinner />
         
-        <app-table-data [columnsValue]="columns" [datasourcesValue]="reservations" [showDeleteValue]="false"
+        <app-table-data [columnsValue]="columns" [datasourcesValue]="reservations" [showDeleteValue]="false" [itemsPerPage]="10"
         (action)="onAction($event)"/>
     }
 }

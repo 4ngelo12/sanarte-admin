@@ -1,4 +1,4 @@
-@for(data of dataSources; track $index){
+@for(data of dataSources | paginate: { itemsPerPage: itemsPerPage, currentPage: page }; track $index){
 <div class="mt-8 ms-14 me-4 p-3 rounded-md border-2 border-black"
     [ngClass]="$index % 2 === 0 ? 'bg-[#dcceb2]' : 'bg-[#c7b194]'">
     @for(nombre of columns; track $index ){
@@ -22,7 +22,10 @@
             (click)="onAction('Eliminar',data)">Delete</a>
         }
     </div>
-
-
 </div>
 }
+
+<div class="ms-14 mt-4">
+    <!-- Controles de paginación -->
+    <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+</div>

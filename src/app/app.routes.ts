@@ -24,6 +24,7 @@ export const routes: Routes = [
         path: 'home',
         title: 'Home',
         canActivate: [authorizationGuard],
+        data: { icon: 'home', },
         loadComponent: () => import('./pages/home/home.component')
     },
     {
@@ -31,6 +32,7 @@ export const routes: Routes = [
         title: 'Categorias',
         canActivate: [authorizationGuard, hasRoleGuard],
         data: {
+            icon: 'dataset',
             allowedRoles: ['Admin']
         },
         children: [
@@ -61,7 +63,8 @@ export const routes: Routes = [
         title: 'Servicios',
         canActivate: [authorizationGuard, hasRoleGuard],
         data: {
-            allowedRoles:['Admin']
+            icon: 'room_service',
+            allowedRoles: ['Admin']
         },
         children: [
             {
@@ -91,7 +94,8 @@ export const routes: Routes = [
         title: 'Personal',
         canActivate: [authorizationGuard, hasRoleGuard],
         data: {
-            allowedRoles:['Admin']
+            icon: 'person',
+            allowedRoles: ['Admin']
         },
         children: [
             {
@@ -119,6 +123,7 @@ export const routes: Routes = [
     {
         path: 'clientes',
         title: 'Clientes',
+        data: { icon: 'groups' },
         canActivate: [authorizationGuard],
         children: [
             {
@@ -146,6 +151,7 @@ export const routes: Routes = [
     {
         path: 'reservas',
         title: 'Reservas',
+        data: { icon: 'event' },
         canActivate: [authorizationGuard],
         children: [
             {
@@ -175,7 +181,8 @@ export const routes: Routes = [
         title: 'Usuarios',
         canActivate: [authorizationGuard, hasRoleGuard],
         data: {
-            allowedRoles:['Admin']
+            data: { icon: 'account_circle' },
+            allowedRoles: ['Admin']
         },
         children: [
             {
