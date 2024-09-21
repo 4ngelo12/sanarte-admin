@@ -30,6 +30,14 @@ export class AlertsService {
     });
   }
 
+  public information(text: string):void {
+    Swal.fire({
+      icon: "info",
+      title: "Información",
+      text: text,
+    });
+  }
+
   public confirmBox(text: string):Promise<any> {
     return Swal.fire({
       title: '¿Estas seguro de realizar esta acción?',

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { IReservationCart } from '../interfaces/Reservations';
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +58,46 @@ export class LocalstorageService {
 
   public getRole() {
     return localStorage.getItem('role');
+  }
+
+  public insertReservationCart(reservation: IReservationCart) {
+    const currentCart = sessionStorage.getItem('reservation_cart');
+    console.log(currentCart);
+    let cart: IReservationCart[] = [];
+
+    if (currentCart) {
+      cart = JSON.parse(currentCart);
+    }
+
+    cart.push(reservation);
+    sessionStorage.setItem('reservation_cart', JSON.stringify(cart));
+  }
+
+
+  public getReservationCart(): IReservationCart[] {
+    const currentCart = sessionStorage.getItem('reservation_cart');
+    let cart: IReservationCart[] = [];
+
+    if (currentCart) {
+      cart = JSON.parse(currentCart);
+    }
+
+    return cart;
+  }
+
+  public deleteReservationCartById(id: string) {
+    const currentCart = sessionStorage.getItem('reservation_cart');
+    let cart: IReservationCart[] = [];
+
+    if (currentCart) {
+      cart = JSON.parse(currentCart);
+    }
+
+    cart = cart.filter((reservation) => reservation.id !== id);
+    sessionStorage.setItem('reservation_cart', JSON.stringify(cart));
+  }
+
+  public deleteReservationCartAll() {
+    sessionStorage.removeItem('reservation_cart');
   }
 }

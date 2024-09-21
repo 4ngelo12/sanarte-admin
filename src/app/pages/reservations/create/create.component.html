@@ -1,13 +1,15 @@
-<div class="flex items-center justify-center min-h-full ms-16 me-5 md:ms-0">
-    <div class="mx-auto w-full max-w-xl p-6 rounded-md bg-[#dcceb2]">
+<div
+    class="flex flex-col md:flex-row gap-8 md:gap-4 items-center justify-center min-h-full ms-16 me-5 md:ms-0 my-5 md:my-0">
+    <section class="mx-auto w-full max-w-xl p-6 rounded-md bg-[#dcceb2]">
         <h2 class="text-center font-semibold text-xl md:text-3xl mb-6">Registrar Reserva</h2>
 
         <form [formGroup]="reservationForm" (ngSubmit)="reservationSubmit()" class="md:grid grid-cols-2 gap-x-3">
-            <div class="mb-2 col-span-2">
+            <div class="mb-2">
                 <label for="date_reservation" class="block text-sm font-medium leading-6 text-gray-900">Fecha de
                     Reserva</label>
                 <div class="mt-2">
-                    <input id="date_reservation" formControlName="date_reservation" type="date" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                    <input id="date_reservation" formControlName="date_reservation" type="date"
+                        (change)="onDateChange($event)" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
                 ring-gray-300  focus:ring-2 focus:ring-inset 
                 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
@@ -22,13 +24,12 @@
                 </div>
             </div>
 
-            <div class="mb-2 col-span-2">
+            <div class="mb-2">
                 <label for="time_reservation" class="block text-sm font-medium leading-6 text-gray-900">Hora</label>
                 <div class="mt-2">
-                    <input id="time_reservation" formControlName="time_reservation" type="time" 
-                        required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
-                ring-gray-300  focus:ring-2 focus:ring-inset 
-                focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input id="time_reservation" formControlName="time_reservation" type="time" required [min]="minTime"
+                        [max]="maxTime" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                ring-gray-300">
                 </div>
 
                 <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md"
@@ -37,16 +38,19 @@
                     <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
                     } @else if (time_reservation.hasError('pattern')) {
                     <span class="text-red-600 font-semibold">El formato ingresado es incorrecto</span>
+                    } @else if (time_reservation.hasError('invalidTime')) {
+                    <span class="text-red-600 font-semibold">La hora seleccionada debe estar entre {{ minTime }} y {{
+                        maxTime }}</span>
                     }
                 </div>
             </div>
-            
+
             <div class="mb-2 col-span-2">
                 <label for="service_id" class="block text-sm font-medium leading-6 text-gray-900">Servicio</label>
                 <div class="mt-2">
-                    <select formControlName="service_id" id="service_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                        focus:ring-blue-500  block w-full p-2.5">
-                        <option selected disabled>Selecciona un Servicio</option>
+                    <select formControlName="service_id" id="service_id" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        <option selected disabled [value]="0">Selecciona un Servicio</option>
                         @for (item of servicesData; track $index) {
                         <option [value]="item.id">{{item.name}}</option>
                         }
@@ -61,11 +65,30 @@
             </div>
 
             <div class="mb-2 col-span-2">
+                <label for="personal_id" class="block text-sm font-medium leading-6 text-gray-900">Personal</label>
+                <div class="mt-2">
+                    <select formControlName="personal_id" id="personal_id" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        <option [value]="0" selected disabled>Selecciona al Personal para la reserva</option>
+                        @for (item of personalData; track $index) {
+                        <option [value]="item.id">{{item.name}} {{item.lastname}}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="personal_id.valid || personal_id.pristine">
+                    @if (personal_id.hasError('required')) {
+                    <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-2 col-span-2">
                 <label for="client_id" class="block text-sm font-medium leading-6 text-gray-900">Cliente</label>
                 <div class="mt-2">
                     <select formControlName="client_id" id="client_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                         focus:ring-blue-500  block w-full p-2.5">
-                        <option selected disabled>Selecciona un Cliente</option>
+                        <option [value]="0" selected disabled>Selecciona un Cliente</option>
                         @for (item of clientsData; track $index) {
                         <option [value]="item.id">{{item.name}} {{item.lastname}}</option>
                         }
@@ -78,13 +101,44 @@
                     }
                 </div>
             </div>
-            
             <div>
                 <button type="submit" [disabled]="reservationForm.invalid" class="hover:shadow-form rounded-md bg-[#496e50] py-2 px-8 font-semibold
                     text-white outline-none hover:bg-[#336b3d] disabled:bg-[#6ea874]">
-                    Guardar
+                    Guardar Reserva
                 </button>
             </div>
         </form>
-    </div>
+    </section>
+
+    <section class="py-6 px-4 rounded-md bg-[#c4af89] md:me-16">
+        <div class="mt-4">
+            <h3 class="text-center font-semibold text-xl mb-4">Servicios Seleccionados</h3>
+
+            <div class="h-44 overflow-y-auto service-list pe-1 w-[17rem]">
+                <ul class="mt-2">
+                    @for (item of reservationCart; track $index) {
+                    <li class="flex flex-col gap-2 justify-between items-start py-2 px-6 bg-[#f0e6d2] rounded-md mb-2">
+                        <span><span class="font-bold">Servicio:</span> {{item.service_name}}</span>
+                        <span><span class="font-bold">Especialista:</span> {{item.personal_name}}</span>
+                        <span><span class="font-bold">Fecha:</span> {{item.date_reservation}} - {{item.time_reservation}}</span>
+                        <span><span class="font-bold">Cliente:</span> {{item.client_name}}</span>
+                        <span></span>
+                        <button (click)="deleteReservationCart(item.id)" class="mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                            </svg>
+                        </button>
+
+                    </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <button class="mt-3 bg-[#496e50] hover:bg-[#336b3d] disabled:bg-[#6ea874] 
+            rounded-md py-2 px-8 text-white font-semibold w-full" [disabled]="reservationCart.length === 0"
+            (click)="saveReservation()">Completar Reserva</button>
+    </section>
 </div>

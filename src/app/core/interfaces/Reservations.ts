@@ -3,8 +3,16 @@ export interface INewReservation {
     time_reservation: string;
     status_id: number;
     service_id: number;
+    service_name: string;
+    personal_id: number;
+    personal_name: string;
     client_id: number;
+    client_name: string;
     user_id: number;
+}
+
+export interface INewReservationCart {
+    reservations: IReservationCart[];
 }
 
 export interface IReservationResponse {
@@ -19,8 +27,24 @@ export interface IReservation {
     time_reservation: string;
     status_id: number;
     service_id: number;
+    personal_id: number;
     client_id: number;
     user_id: number;
+}
+
+export interface IReservationCart {
+    id: string;
+    date_reservation: Date;
+    time_reservation: string;
+    status_id: number;
+    service_id: number;
+    personal_id: number;
+    client_id: number;
+    user_id: number;
+    service_name: string;
+    personal_name: string;
+    client_name: string;
+    duration: number;
 }
 
 export class Reservation {
@@ -29,6 +53,7 @@ export class Reservation {
     time_reservation = '';
     status_name = '';
     service_name = '';
+    personal_name = '';
     client_name = '';
     user_name = '';
 }

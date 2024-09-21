@@ -1,0 +1,17 @@
+<h1 class="title-tb-decoration">Lista de {{title}}</h1>
+
+<a class="button-create"  [routerLink]="['/personal/create']">Crear</a>
+
+@if (isMobile() && showFirstChild) {
+    @defer {
+        <app-spinner />
+            
+        <app-list-data [columnsValue]="columns" [datasourcesValue]="personal" (action)="onAction($event)"/>
+    }
+} @else if (showFirstChild) {
+    @defer {
+        <app-spinner />
+        
+        <app-table-data [columnsValue]="columns" [datasourcesValue]="personal" (action)="onAction($event)"/>
+    }
+}

@@ -1,5 +1,6 @@
 import { Category } from "./Categories";
 import { Client } from "./Clients";
+import { Personal } from "./Personal";
 import { Reservation } from "./Reservations";
 import { Service } from "./Services";
 import { User } from "./Usuarios";
@@ -20,6 +21,8 @@ export const getEntityPropiedades = (entity: string): Array<any> => {
             classResponse = new Category(); break;
         case 'service':
             classResponse = new Service(); break;
+        case 'personal':
+            classResponse = new Personal(); break;
         case 'client':
             classResponse = new Client(); break;
         case 'reservation':

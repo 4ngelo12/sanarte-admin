@@ -1,0 +1,111 @@
+@defer {
+    <app-spinner />
+    }
+    
+    
+    <div class="flex items-center justify-center min-h-full ms-16 me-5 md:ms-0">
+        <div class="mx-auto w-full max-w-xl p-6 rounded-md bg-[#dcceb2]">
+            <h2 class="text-center font-semibold text-xl md:text-3xl mb-6">Actualizar Personal</h2>
+    
+            <form [formGroup]="PersonalForm" (ngSubmit)="clientUpdate()" class="md:grid grid-cols-2 gap-x-3">
+                <div class="mb-2 col-span-2">
+                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+                    <div class="mt-2">
+                        <input id="name" formControlName="name" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                    ring-gray-300  focus:ring-2 focus:ring-inset 
+                    focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+    
+                    <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="name.valid || name.pristine">
+                        @if (name.hasError('required')) {
+                        <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                        } @else if (name.hasError('minlength')) {
+                        <span class="text-red-600 font-semibold">El nombre ingresado es demasiado corto</span>
+                        }
+                    </div>
+                </div>
+    
+                <div class="mb-2 col-span-2">
+                    <label for="lastname" class="block text-sm font-medium leading-6 text-gray-900">Apellido</label>
+                    <div class="mt-2">
+                        <input id="lastname" formControlName="lastname" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                    ring-gray-300  focus:ring-2 focus:ring-inset 
+                    focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+    
+                    <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="lastname.valid || lastname.pristine">
+                        @if (lastname.hasError('required')) {
+                        <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                        } @else if (lastname.hasError('minlength')) {
+                        <span class="text-red-600 font-semibold">El apellido ingresada es demasiado corta</span>
+                        }
+                    </div>
+                </div>
+    
+                <div class="mb-2 col-span-2">
+                    <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Télefono</label>
+                    <div class="mt-2">
+                        <input id="phone" formControlName="phone" type="tel" required (keypress)="onKeyPress($event)" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
+                    ring-gray-300  focus:ring-2 focus:ring-inset 
+                    focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+    
+                    <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="phone.valid || phone.pristine">
+                        @if (phone.hasError('required')) {
+                        <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                        } @else if (phone.hasError('minlength')) {
+                        <span class="text-red-600 font-semibold">El número debe ser de 9 dígitos</span>
+                        } @else if (phone.hasError('maxlength')) {
+                        <span class="text-red-600 font-semibold">El número debe ser de 9 dígitos</span>
+                        }@else if (phone.hasError('pattern')) {
+                        <span class="text-red-600 font-semibold">Debe iniciar con el número 9</span>
+                        }
+                    </div>
+                </div>
+    
+                <div class="mb-2">
+                    <label for="service_id" class="block text-sm font-medium leading-6 text-gray-900">Categoría</label>
+                    <div class="mt-2">
+                        <select formControlName="service_id" id="service_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                            focus:ring-blue-500  block w-full p-2.5">
+                            <option selected disabled>Selecciona una Categoría</option>
+                            @for (item of serviceData; track $index) {
+                            <option [value]="item.id">{{item.name}}</option>
+                            }
+                        </select>
+                    </div>
+    
+                    <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="service_id.valid || service_id.pristine">
+                        @if (service_id.hasError('required')) {
+                        <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                        }
+                    </div>
+                </div>
+    
+                <div class="mb-2">
+                    <label for="status" class="block text-sm font-medium leading-6 text-gray-900">Estado</label>
+                    <div class="mt-2">
+                        <select formControlName="status" id="status" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                            focus:ring-blue-500  block w-full p-2.5">
+                            <option selected disabled>Selecciona una Categoría</option>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
+    
+                    <div class="bg-red-300 py-2 mt-1 ps-4 rounded-md" [hidden]="status.valid || status.pristine">
+                        @if (status.hasError('required')) {
+                        <span class="text-red-600 font-semibold">Debes ingresar un valor</span>
+                        }
+                    </div>
+                </div>
+    
+                <div>
+                    <button type="submit" [disabled]="PersonalForm.invalid" class="hover:shadow-form rounded-md bg-[#496e50] py-2 px-8 font-semibold
+                        text-white outline-none hover:bg-[#336b3d] disabled:bg-[#6ea874]">
+                        Actualizar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>

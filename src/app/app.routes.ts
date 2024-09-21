@@ -87,6 +87,36 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'personal',
+        title: 'Personal',
+        canActivate: [authorizationGuard, hasRoleGuard],
+        data: {
+            allowedRoles:['Admin']
+        },
+        children: [
+            {
+                path: 'list',
+                title: 'List',
+                loadComponent: () => import('./pages/personal/list/list.component')
+            },
+            {
+                path: 'create',
+                title: 'Create',
+                loadComponent: () => import('./pages/personal/create/create.component')
+            },
+            {
+                path: 'edit/:id',
+                title: 'Edit',
+                loadComponent: () => import('./pages/personal/edit/edit.component')
+            },
+            {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
         path: 'clientes',
         title: 'Clientes',
         canActivate: [authorizationGuard],

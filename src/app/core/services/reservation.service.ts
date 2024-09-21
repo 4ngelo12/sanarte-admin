@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { INewReservation, IReservation, IReservationResponse } from '../interfaces/Reservations';
+import {  INewReservationCart, IReservation, IReservationResponse } from '../interfaces/Reservations';
 import baseUrl from '../helper/helper';
 import { Observable } from 'rxjs';
 
@@ -11,7 +11,7 @@ export class ReservationService {
 
   constructor(private http: HttpClient) { }
 
-  newReservation(data: INewReservation) {
+  newReservation(data: INewReservationCart) {
     return this.http.post(`${baseUrl}/reservations`, data);
   }
 
